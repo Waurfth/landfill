@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"/c/Users/ronwa/OneDrive/Desktop/landfill\" log --oneline --all)",
+      "Bash(git -C \"/c/Users/ronwa/OneDrive/Desktop/landfill\" show --stat HEAD)",
+      "Bash(for d in village_sim village_sim/core village_sim/world village_sim/agents village_sim/social village_sim/economy village_sim/simulation village_sim/viz)",
+      "Bash(do touch \"$d/__init__.py\")",
+      "Bash(done)",
+      "Bash(pip install:*)",
+      "Bash(py:*)",
+      "Bash(python -m pip install:*)",
+      "Bash(python:*)"
+    ]
+  }
+}

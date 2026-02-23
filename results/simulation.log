@@ -1,0 +1,314 @@
+[Day    0] [LIFECYCLE ] Village founded with 150 villagers
+[Day    1] [ACTIVITY  ] Perin Gather wild berries and edible plants, yielded {'berries': 5.467835751360717, 'plant_fiber': 1.0252192033801344}
+[Day    1] [ACTIVITY  ] Perin Gather wild berries and edible plants, yielded {'berries': 5.320845213648264, 'plant_fiber': 0.9976584775590495}
+[Day    1] [ACTIVITY  ] Perin Gather wild berries and edible plants, yielded {'berries': 5.654283633400633, 'plant_fiber': 1.0601781812626185}
+[Day    1] [ACTIVITY  ] Keldan Gather wild berries and edible plants, yielded {'berries': 5.415202920297779, 'plant_fiber': 1.0153505475558338}
+[Day    1] [ACTIVITY  ] Keldan Gather wild berries and edible plants, yielded {'berries': 5.252246109221558, 'plant_fiber': 0.9847961454790423}
+[Day    1] [ACTIVITY  ] Keldan Gather wild berries and edible plants, yielded {'berries': 5.992222269990502, 'plant_fiber': 1.1235416756232188}
+[Day    1] [ACTIVITY  ] Perin Fell trees and chop wood, yielded {'timber': 1.1578836442317129, 'firewood': 1.7368254663475695}
+[Day    1] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 5.355950051649423, 'plant_fiber': 1.004240634684267}
+[Day    1] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 6.4799357626284575, 'plant_fiber': 1.2149879554928358}
+[Day    1] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 5.133465736398277, 'plant_fiber': 0.9625248255746767}
+[Day    1] [ACTIVITY  ] Freya Gather wild berries and edible plants, yielded {'berries': 5.904344598144648, 'plant_fiber': 1.1070646121521215}
+[Day    1] [ACTIVITY  ] Freya Gather wild berries and edible plants, yielded {'berries': 5.273458843364621, 'plant_fiber': 0.9887735331308662}
+[Day    1] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 5.081872825052046, 'plant_fiber': 0.9528511546972586}
+[Day    1] [ACTIVITY  ] Quentin Gather wild berries and edible plants, yielded {'berries': 5.013328087867068, 'plant_fiber': 0.9399990164750753}
+[Day    1] [ACTIVITY  ] Opal Fell trees and chop wood, yielded {'timber': 1.1251909059679623, 'firewood': 1.6877863589519435}
+[Day    1] [ACTIVITY  ] Olwen Gather wild berries and edible plants, yielded {'berries': 5.544138702206183, 'plant_fiber': 1.0395260066636594}
+[Day    1] [ACTIVITY  ] Willa was injured during build_shelter (-14 health)
+[Day    1] [ACTIVITY  ] Zara Fell trees and chop wood, yielded {'timber': 1.1628630246631793, 'firewood': 1.744294536994769}
+[Day    1] [ACTIVITY  ] Finn Gather wild berries and edible plants, yielded {'berries': 5.569332182411725, 'plant_fiber': 1.0442497842021985}
+[Day    1] [ACTIVITY  ] Orin was injured during build_shelter (-19 health)
+[Day    1] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 6.307548215078733, 'plant_fiber': 1.1826652903272623}
+[Day    1] [ACTIVITY  ] Iris Gather wild berries and edible plants, yielded {'berries': 5.694818014182908, 'plant_fiber': 1.0677783776592953}
+[Day    1] [ACTIVITY  ] Iris was injured during gather_berries (-19 health)
+[Day    1] [ACTIVITY  ] Iris Gather wild berries and edible plants, yielded {'berries': 5.514897319043962, 'plant_fiber': 1.034043247320743}
+[Day    1] [ACTIVITY  ] Vera was injured during gather_berries (-12 health)
+[Day    1] [ACTIVITY  ] Vera Gather wild berries and edible plants, yielded {'berries': 5.724853169543813, 'plant_fiber': 1.0734099692894652}
+[Day    1] [ACTIVITY  ] Cedric Fell trees and chop wood, yielded {'timber': 1.2427734011680038, 'firewood': 1.864160101752006}
+[Day    1] [ACTIVITY  ] Gwen was injured during craft_tools (-17 health)
+[Day    1] [ACTIVITY  ] Lyra Gather wild berries and edible plants, yielded {'berries': 5.727172405924365, 'plant_fiber': 1.0738448261108187}
+[Day    1] [ACTIVITY  ] Helena Gather wild berries and edible plants, yielded {'berries': 5.614146719349972, 'plant_fiber': 1.0526525098781199}
+[Day    1] [ACTIVITY  ] Kira was injured during build_shelter (-13 health)
+[Day    1] [ACTIVITY  ] Dorian Gather wild berries and edible plants, yielded {'berries': 6.1984924051964505, 'plant_fiber': 1.1622173259743347}
+[Day    1] [ACTIVITY  ] Dorian Gather wild berries and edible plants, yielded {'berries': 6.179336827808681, 'plant_fiber': 1.1586256552141279}
+[Day    1] [ACTIVITY  ] Dorian Gather wild berries and edible plants, yielded {'berries': 5.217441451481668, 'plant_fiber': 0.9782702721528126}
+[Day    1] [ACTIVITY  ] Dorian was injured during cook_food (-6 health)
+[Day    1] [ACTIVITY  ] Cedric was injured during cook_food (-10 health)
+[Day    1] [ACTIVITY  ] Liam Gather wild berries and edible plants, yielded {'berries': 6.222057721501675, 'plant_fiber': 1.166635822781564}
+[Day    1] [ACTIVITY  ] Liam Gather wild berries and edible plants, yielded {'berries': 5.744805961615365, 'plant_fiber': 1.077151117802881}
+[Day    1] [ACTIVITY  ] Yorick Gather wild berries and edible plants, yielded {'berries': 6.04103571803499, 'plant_fiber': 1.1326941971315607}
+[Day    1] [ACTIVITY  ] Oswin Fell trees and chop wood, yielded {'timber': 1.3605340454617447, 'firewood': 2.0408010681926174}
+[Day    1] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 5.020738595798373, 'plant_fiber': 0.941388486712195}
+[Day    1] [ACTIVITY  ] Isla Gather wild berries and edible plants, yielded {'berries': 5.25147243899811, 'plant_fiber': 0.9846510823121456}
+[Day    1] [ACTIVITY  ] Isla Gather wild berries and edible plants, yielded {'berries': 5.359464310188026, 'plant_fiber': 1.0048995581602551}
+[Day    1] [ACTIVITY  ] Isla Gather wild berries and edible plants, yielded {'berries': 5.282210480165191, 'plant_fiber': 0.9904144650309732}
+[Day    1] [ACTIVITY  ] Una Gather wild berries and edible plants, yielded {'berries': 4.997257909941892, 'plant_fiber': 0.9369858581141047}
+[Day    1] [ACTIVITY  ] Clara Gather wild berries and edible plants, yielded {'berries': 4.932856695715171, 'plant_fiber': 0.9249106304465947}
+[Day    1] [ACTIVITY  ] Clara Gather wild berries and edible plants, yielded {'berries': 5.551844458266683, 'plant_fiber': 1.0409708359250032}
+[Day    1] [ACTIVITY  ] Lyra was injured during build_shelter (-19 health)
+[Day    1] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 5.052728966592339, 'plant_fiber': 0.9473866812360636}
+[Day    1] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 5.876501303970418, 'plant_fiber': 1.1018439944944536}
+[Day    1] [ACTIVITY  ] Gideon Fell trees and chop wood, yielded {'timber': 1.2473197915865197, 'firewood': 1.8709796873797797}
+[Day    1] [ACTIVITY  ] Luna Gather wild berries and edible plants, yielded {'berries': 5.607748234845514, 'plant_fiber': 1.0514527940335339}
+[Day    1] [ACTIVITY  ] Luna was injured during gather_berries (-14 health)
+[Day    1] [ACTIVITY  ] Hadric Gather wild berries and edible plants, yielded {'berries': 4.938972952968422, 'plant_fiber': 0.9260574286815793}
+[Day    1] [ACTIVITY  ] Hadric Gather wild berries and edible plants, yielded {'berries': 5.394254905064776, 'plant_fiber': 1.0114227946996455}
+[Day    1] [ACTIVITY  ] Eva Gather wild berries and edible plants, yielded {'berries': 5.9944137840492155, 'plant_fiber': 1.123952584509228}
+[Day    1] [ACTIVITY  ] Eva Gather wild berries and edible plants, yielded {'berries': 5.458381985385761, 'plant_fiber': 1.0234466222598302}
+[Day    1] [ACTIVITY  ] Perin Gather wild berries and edible plants, yielded {'berries': 5.367650356656883, 'plant_fiber': 1.0064344418731657}
+[Day    2] [ACTIVITY  ] Perin Gather wild berries and edible plants, yielded {'berries': 5.330484980930437, 'plant_fiber': 0.9994659339244568}
+[Day    2] [ACTIVITY  ] Perin Gather wild berries and edible plants, yielded {'berries': 5.793143587004747, 'plant_fiber': 1.0862144225633898}
+[Day    2] [ACTIVITY  ] Perin Gather wild berries and edible plants, yielded {'berries': 5.437171059641309, 'plant_fiber': 1.0194695736827455}
+[Day    2] [ACTIVITY  ] Luna was injured during build_shelter (-9 health)
+[Day    2] [ACTIVITY  ] Keldan Gather wild berries and edible plants, yielded {'berries': 5.153499999222988, 'plant_fiber': 0.9662812498543103}
+[Day    2] [ACTIVITY  ] Keldan Gather wild berries and edible plants, yielded {'berries': 5.166778576721042, 'plant_fiber': 0.9687709831351955}
+[Day    2] [ACTIVITY  ] Perin Fell trees and chop wood, yielded {'timber': 1.1696869976021236, 'firewood': 1.7545304964031851}
+[Day    2] [ACTIVITY  ] Perin was injured during chop_wood (-18 health)
+[Day    2] [ACTIVITY  ] Darian was injured during cook_food (-13 health)
+[Day    2] [ACTIVITY  ] Magnus was injured during cook_food (-10 health)
+[Day    2] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 5.186808294113382, 'plant_fiber': 0.9725265551462591}
+[Day    2] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 5.410704508693447, 'plant_fiber': 1.0145070953800213}
+[Day    2] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 5.503196691276207, 'plant_fiber': 1.0318493796142887}
+[Day    2] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 5.988231125931828, 'plant_fiber': 1.1227933361122175}
+[Day    2] [ACTIVITY  ] Freya Gather wild berries and edible plants, yielded {'berries': 5.456175847200992, 'plant_fiber': 1.0230329713501862}
+[Day    2] [ACTIVITY  ] Freya Gather wild berries and edible plants, yielded {'berries': 5.866399330977321, 'plant_fiber': 1.0999498745582474}
+[Day    2] [ACTIVITY  ] Edwin was injured during build_shelter (-11 health)
+[Day    2] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 5.314920280036592, 'plant_fiber': 0.9965475525068609}
+[Day    2] [ACTIVITY  ] Anya was injured during gather_berries (-18 health)
+[Day    2] [ACTIVITY  ] Anya was injured during gather_berries (-13 health)
+[Day    2] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 5.643247382126158, 'plant_fiber': 1.0581088841486548}
+[Day    2] [ACTIVITY  ] Quentin Gather wild berries and edible plants, yielded {'berries': 5.565211902694628, 'plant_fiber': 1.0434772317552428}
+[Day    2] [ACTIVITY  ] Quentin Gather wild berries and edible plants, yielded {'berries': 5.775476944322921, 'plant_fiber': 1.0829019270605478}
+[Day    2] [ACTIVITY  ] Nolan Gather wild berries and edible plants, yielded {'berries': 4.991039803430463, 'plant_fiber': 0.9358199631432119}
+[Day    2] [ACTIVITY  ] Opal Fell trees and chop wood, yielded {'timber': 1.1733413871875138, 'firewood': 1.7600120807812705}
+[Day    2] [ACTIVITY  ] Finn Gather wild berries and edible plants, yielded {'berries': 5.48880588733056, 'plant_fiber': 1.02915110387448}
+[Day    2] [ACTIVITY  ] Finn Gather wild berries and edible plants, yielded {'berries': 5.088407594748621, 'plant_fiber': 0.9540764240153663}
+[Day    2] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 5.0845143257790895, 'plant_fiber': 0.9533464360835793}
+[Day    2] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 5.402072201299908, 'plant_fiber': 1.0128885377437327}
+[Day    2] [ACTIVITY  ] Vera Fell trees and chop wood, yielded {'timber': 1.121370558877429, 'firewood': 1.682055838316144}
+[Day    2] [ACTIVITY  ] Hana was injured during chop_wood (-10 health)
+[Day    2] [ACTIVITY  ] Freya was injured during cook_food (-19 health)
+[Day    2] [ACTIVITY  ] Lyra Gather wild berries and edible plants, yielded {'berries': 5.413218783302141, 'plant_fiber': 1.0149785218691514}
+[Day    2] [ACTIVITY  ] Lyra Gather wild berries and edible plants, yielded {'berries': 5.135612040997402, 'plant_fiber': 0.9629272576870128}
+[Day    2] [ACTIVITY  ] Lyra Gather wild berries and edible plants, yielded {'berries': 5.173629986139117, 'plant_fiber': 0.9700556224010844}
+[Day    2] [ACTIVITY  ] Maren was injured during craft_tools (-9 health)
+[Day    2] [ACTIVITY  ] Dorian Gather wild berries and edible plants, yielded {'berries': 5.3925942179390525, 'plant_fiber': 1.0111114158635723}
+[Day    2] [ACTIVITY  ] Gideon was injured during chop_wood (-18 health)
+[Day    2] [ACTIVITY  ] Yorick was injured during build_shelter (-7 health)
+[Day    2] [ACTIVITY  ] Clara Fell trees and chop wood, yielded {'timber': 1.2009285342872773, 'firewood': 1.8013928014309162}
+[Day    2] [ACTIVITY  ] Liam was injured during gather_berries (-6 health)
+[Day    2] [ACTIVITY  ] Oswin Fell trees and chop wood, yielded {'timber': 1.2451911014219952, 'firewood': 1.8677866521329927}
+[Day    2] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 5.293877741319825, 'plant_fiber': 0.9926020764974671}
+[Day    2] [ACTIVITY  ] Elara was injured during craft_tools (-14 health)
+[Day    2] [ACTIVITY  ] Elara was injured during craft_tools (-20 health)
+[Day    2] [ACTIVITY  ] Elara was injured during cook_food (-12 health)
+[Day    2] [ACTIVITY  ] Clara Gather wild berries and edible plants, yielded {'berries': 5.547343084396188, 'plant_fiber': 1.0401268283242853}
+[Day    2] [ACTIVITY  ] Clara Gather wild berries and edible plants, yielded {'berries': 5.48988149655079, 'plant_fiber': 1.0293527806032732}
+[Day    2] [ACTIVITY  ] Lyra was injured during build_shelter (-7 health)
+[Day    2] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 5.706426856604945, 'plant_fiber': 1.0699550356134273}
+[Day    2] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 5.8915599070364335, 'plant_fiber': 1.1046674825693312}
+[Day    2] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 5.720063516393864, 'plant_fiber': 1.0725119093238495}
+[Day    2] [ACTIVITY  ] Perin was injured during build_shelter (-15 health)
+[Day    2] [ACTIVITY  ] Rhea was injured during chop_wood (-17 health)
+[Day    3] [ACTIVITY  ] Perin Gather wild berries and edible plants, yielded {'berries': 5.826345170617399, 'plant_fiber': 1.0924397194907625}
+[Day    3] [ACTIVITY  ] Perin Gather wild berries and edible plants, yielded {'berries': 6.39155543261876, 'plant_fiber': 1.1984166436160175}
+[Day    3] [ACTIVITY  ] Perin Gather wild berries and edible plants, yielded {'berries': 6.961132479677575, 'plant_fiber': 1.3052123399395452}
+[Day    3] [ACTIVITY  ] Perin Gather wild berries and edible plants, yielded {'berries': 7.041623519772475, 'plant_fiber': 1.320304409957339}
+[Day    3] [ACTIVITY  ] Keldan Gather wild berries and edible plants, yielded {'berries': 5.535033165231827, 'plant_fiber': 1.0378187184809675}
+[Day    3] [ACTIVITY  ] Keldan Gather wild berries and edible plants, yielded {'berries': 5.961161505055078, 'plant_fiber': 1.1177177821978272}
+[Day    3] [ACTIVITY  ] Keldan Gather wild berries and edible plants, yielded {'berries': 5.566617112083012, 'plant_fiber': 1.043740708515565}
+[Day    3] [ACTIVITY  ] Keldan Gather wild berries and edible plants, yielded {'berries': 6.288011452225572, 'plant_fiber': 1.1790021472922945}
+[Day    3] [ACTIVITY  ] Perin Fell trees and chop wood, yielded {'timber': 1.2772405278156955, 'firewood': 1.915860791723543}
+[Day    3] [ACTIVITY  ] Perin Fell trees and chop wood, yielded {'timber': 1.152575764706968, 'firewood': 1.7288636470604521}
+[Day    3] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 5.459932900551743, 'plant_fiber': 1.0237374188534516}
+[Day    3] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 5.3907851060322445, 'plant_fiber': 1.0107722073810457}
+[Day    3] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 5.529958390915108, 'plant_fiber': 1.0368671982965827}
+[Day    3] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 6.652382029188078, 'plant_fiber': 1.2473216304727648}
+[Day    3] [ACTIVITY  ] Freya Gather wild berries and edible plants, yielded {'berries': 5.68407538326746, 'plant_fiber': 1.065764134362649}
+[Day    3] [ACTIVITY  ] Freya Gather wild berries and edible plants, yielded {'berries': 6.990112668598907, 'plant_fiber': 1.310646125362295}
+[Day    3] [ACTIVITY  ] Freya Gather wild berries and edible plants, yielded {'berries': 5.804350785932568, 'plant_fiber': 1.0883157723623564}
+[Day    3] [ACTIVITY  ] Freya Gather wild berries and edible plants, yielded {'berries': 6.695521198037379, 'plant_fiber': 1.2554102246320085}
+[Day    3] [ACTIVITY  ] Quentin Gather wild berries and edible plants, yielded {'berries': 6.749530939022391, 'plant_fiber': 1.2655370510666983}
+[Day    3] [ACTIVITY  ] Quentin Gather wild berries and edible plants, yielded {'berries': 5.597268636799549, 'plant_fiber': 1.0494878693999152}
+[Day    3] [ACTIVITY  ] Quentin Gather wild berries and edible plants, yielded {'berries': 6.62984309709638, 'plant_fiber': 1.2430955807055712}
+[Day    3] [ACTIVITY  ] Opal Fell trees and chop wood, yielded {'timber': 1.2554069864754813, 'firewood': 1.8831104797132219}
+[Day    3] [ACTIVITY  ] Olwen Gather wild berries and edible plants, yielded {'berries': 5.4331698689534695, 'plant_fiber': 1.0187193504287757}
+[Day    3] [ACTIVITY  ] Olwen Gather wild berries and edible plants, yielded {'berries': 6.517432297381223, 'plant_fiber': 1.2220185557589793}
+[Day    3] [ACTIVITY  ] Zara Fell trees and chop wood, yielded {'timber': 1.3262410334457433, 'firewood': 1.9893615501686148}
+[Day    3] [ACTIVITY  ] Zara Fell trees and chop wood, yielded {'timber': 1.2143180415630948, 'firewood': 1.8214770623446424}
+[Day    3] [ACTIVITY  ] Zara Fell trees and chop wood, yielded {'timber': 1.3466563088565782, 'firewood': 2.0199844632848674}
+[Day    3] [ACTIVITY  ] Finn Gather wild berries and edible plants, yielded {'berries': 5.453655240730278, 'plant_fiber': 1.022560357636927}
+[Day    3] [ACTIVITY  ] Finn Gather wild berries and edible plants, yielded {'berries': 6.068058146343143, 'plant_fiber': 1.1377609024393394}
+[Day    3] [ACTIVITY  ] Finn Gather wild berries and edible plants, yielded {'berries': 5.533093961251074, 'plant_fiber': 1.0374551177345763}
+[Day    3] [ACTIVITY  ] Anya was injured during build_shelter (-5 health)
+[Day    3] [ACTIVITY  ] Jasper was injured during build_shelter (-9 health)
+[Day    3] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 6.030631079677135, 'plant_fiber': 1.130743327439463}
+[Day    3] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 5.252051767086592, 'plant_fiber': 0.984759706328736}
+[Day    3] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 7.09845641846338, 'plant_fiber': 1.3309605784618839}
+[Day    3] [ACTIVITY  ] Iris was injured during cook_food (-6 health)
+[Day    3] [ACTIVITY  ] Vera Fell trees and chop wood, yielded {'timber': 1.145687423062518, 'firewood': 1.7185311345937775}
+[Day    3] [ACTIVITY  ] Vera Fell trees and chop wood, yielded {'timber': 1.2040397864218413, 'firewood': 1.806059679632762}
+[Day    3] [ACTIVITY  ] Cedric Fell trees and chop wood, yielded {'timber': 1.329911781256634, 'firewood': 1.9948676718849507}
+[Day    3] [ACTIVITY  ] Cedric Fell trees and chop wood, yielded {'timber': 1.3335933198364787, 'firewood': 2.000389979754718}
+[Day    3] [ACTIVITY  ] Hana Fell trees and chop wood, yielded {'timber': 1.1472591204272742, 'firewood': 1.720888680640911}
+[Day    3] [ACTIVITY  ] Yorick was injured during cook_food (-17 health)
+[Day    3] [ACTIVITY  ] Zander Fell trees and chop wood, yielded {'timber': 1.2060025712320765, 'firewood': 1.8090038568481148}
+[Day    3] [ACTIVITY  ] Lyra Gather wild berries and edible plants, yielded {'berries': 5.804058717765141, 'plant_fiber': 1.088261009580964}
+[Day    3] [ACTIVITY  ] Lyra was injured during gather_berries (-16 health)
+[Day    3] [ACTIVITY  ] Lyra Gather wild berries and edible plants, yielded {'berries': 5.480795598598629, 'plant_fiber': 1.0276491747372427}
+[Day    3] [ACTIVITY  ] Lyra Gather wild berries and edible plants, yielded {'berries': 6.452043611755152, 'plant_fiber': 1.209758177204091}
+[Day    3] [ACTIVITY  ] Lyra was injured during gather_berries (-19 health)
+[Day    3] [ACTIVITY  ] Lyra Gather wild berries and edible plants, yielded {'berries': 5.5756646539303745, 'plant_fiber': 1.0454371226119452}
+[Day    3] [ACTIVITY  ] Gideon was injured during build_shelter (-15 health)
+[Day    3] [ACTIVITY  ] Helena Gather wild berries and edible plants, yielded {'berries': 5.384542577797158, 'plant_fiber': 1.0096017333369671}
+[Day    3] [ACTIVITY  ] Helena Gather wild berries and edible plants, yielded {'berries': 5.460151273424936, 'plant_fiber': 1.0237783637671753}
+[Day    3] [ACTIVITY  ] Helena Gather wild berries and edible plants, yielded {'berries': 5.496854963217035, 'plant_fiber': 1.030660305603194}
+[Day    3] [ACTIVITY  ] Dorian Gather wild berries and edible plants, yielded {'berries': 5.6633609110858565, 'plant_fiber': 1.061880170828598}
+[Day    3] [ACTIVITY  ] Dorian Gather wild berries and edible plants, yielded {'berries': 5.517939418883165, 'plant_fiber': 1.0346136410405933}
+[Day    3] [ACTIVITY  ] Dorian Gather wild berries and edible plants, yielded {'berries': 6.172042823283896, 'plant_fiber': 1.1572580293657306}
+[Day    3] [ACTIVITY  ] Gideon Fell trees and chop wood, yielded {'timber': 1.1417371482822394, 'firewood': 1.7126057224233595}
+[Day    3] [ACTIVITY  ] Clara was injured during chop_wood (-9 health)
+[Day    3] [ACTIVITY  ] Clara Fell trees and chop wood, yielded {'timber': 1.2965231692158536, 'firewood': 1.9447847538237801}
+[Day    3] [ACTIVITY  ] Liam Gather wild berries and edible plants, yielded {'berries': 5.569502806233271, 'plant_fiber': 1.0442817761687384}
+[Day    3] [ACTIVITY  ] Liam Gather wild berries and edible plants, yielded {'berries': 5.562626708046317, 'plant_fiber': 1.0429925077586846}
+[Day    3] [ACTIVITY  ] Liam Gather wild berries and edible plants, yielded {'berries': 5.545171430870661, 'plant_fiber': 1.0397196432882487}
+[Day    3] [ACTIVITY  ] Liam Gather wild berries and edible plants, yielded {'berries': 5.289111145716531, 'plant_fiber': 0.9917083398218495}
+[Day    3] [ACTIVITY  ] Della was injured during cook_food (-19 health)
+[Day    3] [ACTIVITY  ] Oswin Fell trees and chop wood, yielded {'timber': 1.3750591364498708, 'firewood': 2.0625887046748064}
+[Day    3] [ACTIVITY  ] Oswin Fell trees and chop wood, yielded {'timber': 1.3380201518748278, 'firewood': 2.007030227812242}
+[Day    3] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 6.1645936807519615, 'plant_fiber': 1.1558613151409929}
+[Day    3] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 5.67085005851832, 'plant_fiber': 1.063284385972185}
+[Day    3] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 5.819111996776156, 'plant_fiber': 1.0910834993955294}
+[Day    3] [ACTIVITY  ] Clara Gather wild berries and edible plants, yielded {'berries': 6.340185437947268, 'plant_fiber': 1.1887847696151128}
+[Day    3] [ACTIVITY  ] Clara Gather wild berries and edible plants, yielded {'berries': 5.218085825097054, 'plant_fiber': 0.9783910922056975}
+[Day    3] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 6.267315332540887, 'plant_fiber': 1.1751216248514165}
+[Day    3] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 6.467144771995553, 'plant_fiber': 1.2125896447491662}
+[Day    3] [ACTIVITY  ] Fiona was injured during gather_berries (-8 health)
+[Day    3] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 5.515744047330261, 'plant_fiber': 1.034202008874424}
+[Day    3] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 5.666391786321517, 'plant_fiber': 1.0624484599352846}
+[Day    3] [ACTIVITY  ] Luna Gather wild berries and edible plants, yielded {'berries': 5.960603287072534, 'plant_fiber': 1.1176131163261}
+[Day    3] [ACTIVITY  ] Luna Gather wild berries and edible plants, yielded {'berries': 5.3026246366018635, 'plant_fiber': 0.9942421193628493}
+[Day    3] [ACTIVITY  ] Luna Gather wild berries and edible plants, yielded {'berries': 5.509640213825015, 'plant_fiber': 1.0330575400921902}
+[Day    3] [ACTIVITY  ] Luna Gather wild berries and edible plants, yielded {'berries': 6.493557701127458, 'plant_fiber': 1.2175420689613985}
+[Day    3] [ACTIVITY  ] Eva Gather wild berries and edible plants, yielded {'berries': 5.334062183053894, 'plant_fiber': 1.0001366593226053}
+[Day    3] [ACTIVITY  ] Eva Gather wild berries and edible plants, yielded {'berries': 5.959980497969505, 'plant_fiber': 1.1174963433692822}
+[Day    3] [ACTIVITY  ] Eva Gather wild berries and edible plants, yielded {'berries': 5.309488467014222, 'plant_fiber': 0.9955290875651667}
+[Day    3] [ACTIVITY  ] Magnus Fell trees and chop wood, yielded {'timber': 1.2322325383410404, 'firewood': 1.8483488075115608}
+[Day    3] [ACTIVITY  ] Rhea Fell trees and chop wood, yielded {'timber': 1.1846890088455115, 'firewood': 1.7770335132682675}
+[Day    4] [ACTIVITY  ] Perin Gather wild berries and edible plants, yielded {'berries': 5.670289344647945, 'plant_fiber': 1.0631792521214898}
+[Day    4] [ACTIVITY  ] Keldan Gather wild berries and edible plants, yielded {'berries': 5.9830926006962075, 'plant_fiber': 1.121829862630539}
+[Day    4] [ACTIVITY  ] Keldan Gather wild berries and edible plants, yielded {'berries': 5.915153872333118, 'plant_fiber': 1.1090913510624596}
+[Day    4] [ACTIVITY  ] Keldan Gather wild berries and edible plants, yielded {'berries': 5.730091511633049, 'plant_fiber': 1.0743921584311966}
+[Day    4] [ACTIVITY  ] Perin was injured during chop_wood (-16 health)
+[Day    4] [ACTIVITY  ] Perin Fell trees and chop wood, yielded {'timber': 1.2630737180772482, 'firewood': 1.8946105771158723}
+[Day    4] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 6.515559266160376, 'plant_fiber': 1.2216673624050705}
+[Day    4] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 5.723812698711405, 'plant_fiber': 1.0732148810083886}
+[Day    4] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 5.741854175132711, 'plant_fiber': 1.0765976578373833}
+[Day    4] [ACTIVITY  ] Freya Gather wild berries and edible plants, yielded {'berries': 6.366755481234051, 'plant_fiber': 1.1937666527313846}
+[Day    4] [ACTIVITY  ] Freya Gather wild berries and edible plants, yielded {'berries': 6.025537519713062, 'plant_fiber': 1.129788284946199}
+[Day    4] [ACTIVITY  ] Freya Gather wild berries and edible plants, yielded {'berries': 6.033593964919033, 'plant_fiber': 1.1312988684223186}
+[Day    4] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 5.244636462249468, 'plant_fiber': 0.9833693366717752}
+[Day    4] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 5.49314773360866, 'plant_fiber': 1.0299652000516237}
+[Day    4] [ACTIVITY  ] Quentin Gather wild berries and edible plants, yielded {'berries': 5.993287950644207, 'plant_fiber': 1.123741490745789}
+[Day    4] [ACTIVITY  ] Quentin Gather wild berries and edible plants, yielded {'berries': 6.613761937712301, 'plant_fiber': 1.2400803633210564}
+[Day    4] [ACTIVITY  ] Quentin Gather wild berries and edible plants, yielded {'berries': 5.941675502889178, 'plant_fiber': 1.1140641567917209}
+[Day    4] [ACTIVITY  ] Opal Fell trees and chop wood, yielded {'timber': 1.2216983212423045, 'firewood': 1.8325474818634564}
+[Day    4] [ACTIVITY  ] Olwen Gather wild berries and edible plants, yielded {'berries': 5.543847753666273, 'plant_fiber': 1.0394714538124261}
+[Day    4] [ACTIVITY  ] Olwen Gather wild berries and edible plants, yielded {'berries': 5.374315853784048, 'plant_fiber': 1.0076842225845088}
+[Day    4] [ACTIVITY  ] Olwen Gather wild berries and edible plants, yielded {'berries': 5.661543314558388, 'plant_fiber': 1.061539371479698}
+[Day    4] [ACTIVITY  ] Zara Fell trees and chop wood, yielded {'timber': 1.1732572240202315, 'firewood': 1.759885836030347}
+[Day    4] [ACTIVITY  ] Finn Gather wild berries and edible plants, yielded {'berries': 5.285790080978373, 'plant_fiber': 0.991085640183445}
+[Day    4] [ACTIVITY  ] Finn Gather wild berries and edible plants, yielded {'berries': 5.352774108866294, 'plant_fiber': 1.00364514541243}
+[Day    4] [ACTIVITY  ] Finn Gather wild berries and edible plants, yielded {'berries': 5.821609318232248, 'plant_fiber': 1.0915517471685465}
+[Day    4] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 6.502778120018237, 'plant_fiber': 1.2192708975034194}
+[Day    4] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 5.6416172771921085, 'plant_fiber': 1.0578032394735204}
+[Day    4] [ACTIVITY  ] Vera Fell trees and chop wood, yielded {'timber': 1.1816472491888046, 'firewood': 1.7724708737832067}
+[Day    4] [ACTIVITY  ] Vera was injured during chop_wood (-20 health)
+[Day    4] [ACTIVITY  ] Vera Fell trees and chop wood, yielded {'timber': 1.182324827694173, 'firewood': 1.7734872415412593}
+[Day    4] [ACTIVITY  ] Vera was injured during chop_wood (-18 health)
+[Day    4] [ACTIVITY  ] Cedric Fell trees and chop wood, yielded {'timber': 1.2150443129229704, 'firewood': 1.8225664693844552}
+[Day    4] [ACTIVITY  ] Cedric Fell trees and chop wood, yielded {'timber': 1.2106349063188118, 'firewood': 1.8159523594782176}
+[Day    4] [ACTIVITY  ] Hana Fell trees and chop wood, yielded {'timber': 1.2643721495608549, 'firewood': 1.8965582243412824}
+[Day    4] [ACTIVITY  ] Lyra Gather wild berries and edible plants, yielded {'berries': 6.425839105382097, 'plant_fiber': 1.204844832259143}
+[Day    4] [ACTIVITY  ] Lyra Gather wild berries and edible plants, yielded {'berries': 6.202907209281929, 'plant_fiber': 1.1630451017403618}
+[Day    4] [ACTIVITY  ] Helena Gather wild berries and edible plants, yielded {'berries': 5.400269824569382, 'plant_fiber': 1.0125505921067592}
+[Day    4] [ACTIVITY  ] Helena Gather wild berries and edible plants, yielded {'berries': 5.91076469602852, 'plant_fiber': 1.1082683805053475}
+[Day    4] [ACTIVITY  ] Helena Gather wild berries and edible plants, yielded {'berries': 5.4830214863499505, 'plant_fiber': 1.0280665286906157}
+[Day    4] [ACTIVITY  ] Helena was injured during gather_berries (-12 health)
+[Day    4] [ACTIVITY  ] Dorian Gather wild berries and edible plants, yielded {'berries': 6.279615991731703, 'plant_fiber': 1.1774279984496943}
+[Day    4] [ACTIVITY  ] Dorian Gather wild berries and edible plants, yielded {'berries': 6.587597676307777, 'plant_fiber': 1.235174564307708}
+[Day    4] [ACTIVITY  ] Dorian Gather wild berries and edible plants, yielded {'berries': 5.5717889097620255, 'plant_fiber': 1.0447104205803799}
+[Day    4] [ACTIVITY  ] Dorian Gather wild berries and edible plants, yielded {'berries': 5.742210247294162, 'plant_fiber': 1.0766644213676555}
+[Day    4] [ACTIVITY  ] Liam Gather wild berries and edible plants, yielded {'berries': 6.455225232241259, 'plant_fiber': 1.2103547310452363}
+[Day    4] [ACTIVITY  ] Liam Gather wild berries and edible plants, yielded {'berries': 5.814558516161338, 'plant_fiber': 1.0902297217802508}
+[Day    4] [ACTIVITY  ] Liam was injured during gather_berries (-8 health)
+[Day    4] [ACTIVITY  ] Liam Gather wild berries and edible plants, yielded {'berries': 6.013470131466833, 'plant_fiber': 1.1275256496500312}
+[Day    4] [ACTIVITY  ] Oswin Fell trees and chop wood, yielded {'timber': 1.2802868538095795, 'firewood': 1.9204302807143696}
+[Day    4] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 6.027597470240912, 'plant_fiber': 1.130174525670171}
+[Day    4] [ACTIVITY  ] Una was injured during cook_food (-20 health)
+[Day    4] [ACTIVITY  ] Una was injured during cook_food (-8 health)
+[Day    4] [ACTIVITY  ] Clara Gather wild berries and edible plants, yielded {'berries': 6.263501959187082, 'plant_fiber': 1.174406617347578}
+[Day    4] [ACTIVITY  ] Clara Gather wild berries and edible plants, yielded {'berries': 5.912053939428687, 'plant_fiber': 1.108510113642879}
+[Day    4] [ACTIVITY  ] Clara Gather wild berries and edible plants, yielded {'berries': 6.182731748928959, 'plant_fiber': 1.15926220292418}
+[Day    4] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 6.2528943174281, 'plant_fiber': 1.1724176845177687}
+[Day    4] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 5.871157432551726, 'plant_fiber': 1.1008420186034487}
+[Day    4] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 5.45794270405617, 'plant_fiber': 1.0233642570105317}
+[Day    4] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 6.076401064939868, 'plant_fiber': 1.1393251996762253}
+[Day    4] [ACTIVITY  ] Luna Gather wild berries and edible plants, yielded {'berries': 5.667543714614055, 'plant_fiber': 1.0626644464901354}
+[Day    4] [ACTIVITY  ] Luna was injured during gather_berries (-20 health)
+[Day    4] [ACTIVITY  ] Luna Gather wild berries and edible plants, yielded {'berries': 6.46967544739875, 'plant_fiber': 1.2130641463872656}
+[Day    4] [ACTIVITY  ] Eva Gather wild berries and edible plants, yielded {'berries': 6.5975165236527555, 'plant_fiber': 1.2370343481848918}
+[Day    4] [ACTIVITY  ] Magnus Fell trees and chop wood, yielded {'timber': 1.147225594266661, 'firewood': 1.7208383913999916}
+[Day    4] [ACTIVITY  ] Rhea Fell trees and chop wood, yielded {'timber': 1.1590162285387018, 'firewood': 1.7385243428080528}
+[Day    4] [ACTIVITY  ] Rhea was injured during chop_wood (-7 health)
+[Day    4] [ACTIVITY  ] Rhea Fell trees and chop wood, yielded {'timber': 1.1876205348282802, 'firewood': 1.7814308022424203}
+[Day    5] [ACTIVITY  ] Perin Gather wild berries and edible plants, yielded {'berries': 5.520487615695666, 'plant_fiber': 1.0350914279429375}
+[Day    5] [ACTIVITY  ] Perin Gather wild berries and edible plants, yielded {'berries': 6.7638268596186375, 'plant_fiber': 1.2682175361784942}
+[Day    5] [ACTIVITY  ] Perin was injured during chop_wood (-17 health)
+[Day    5] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 7.25718924442163, 'plant_fiber': 1.3607229833290557}
+[Day    5] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 7.2798985223619805, 'plant_fiber': 1.3649809729428712}
+[Day    5] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 6.518950302311517, 'plant_fiber': 1.2223031816834096}
+[Day    5] [ACTIVITY  ] Niall Gather wild berries and edible plants, yielded {'berries': 6.430327772593631, 'plant_fiber': 1.2056864573613058}
+[Day    5] [ACTIVITY  ] Freya Gather wild berries and edible plants, yielded {'berries': 5.586099890558614, 'plant_fiber': 1.0473937294797402}
+[Day    5] [ACTIVITY  ] Freya Gather wild berries and edible plants, yielded {'berries': 5.684645027615063, 'plant_fiber': 1.0658709426778241}
+[Day    5] [ACTIVITY  ] Freya Gather wild berries and edible plants, yielded {'berries': 6.026559253542025, 'plant_fiber': 1.1299798600391295}
+[Day    5] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 6.233357965652933, 'plant_fiber': 1.1687546185599251}
+[Day    5] [ACTIVITY  ] Quentin Gather wild berries and edible plants, yielded {'berries': 6.679848142323383, 'plant_fiber': 1.252471526685634}
+[Day    5] [ACTIVITY  ] Opal Fell trees and chop wood, yielded {'timber': 1.1897764552916603, 'firewood': 1.7846646829374906}
+[Day    5] [ACTIVITY  ] Olwen Gather wild berries and edible plants, yielded {'berries': 5.848777968666569, 'plant_fiber': 1.0966458691249816}
+[Day    5] [ACTIVITY  ] Olwen Gather wild berries and edible plants, yielded {'berries': 6.258994581837975, 'plant_fiber': 1.1735614840946202}
+[Day    5] [ACTIVITY  ] Olwen Gather wild berries and edible plants, yielded {'berries': 6.117711775860668, 'plant_fiber': 1.1470709579738751}
+[Day    5] [ACTIVITY  ] Finn Gather wild berries and edible plants, yielded {'berries': 6.224260749646227, 'plant_fiber': 1.1670488905586676}
+[Day    5] [ACTIVITY  ] Anya Gather wild berries and edible plants, yielded {'berries': 5.929213248391787, 'plant_fiber': 1.1117274840734601}
+[Day    5] [ACTIVITY  ] Hana Fell trees and chop wood, yielded {'timber': 1.2124761772322434, 'firewood': 1.8187142658483653}
+[Day    5] [ACTIVITY  ] Hana Fell trees and chop wood, yielded {'timber': 1.1644835640922981, 'firewood': 1.746725346138447}
+[Day    5] [ACTIVITY  ] Freya was injured during cook_food (-19 health)
+[Day    5] [ACTIVITY  ] Zander was injured during chop_wood (-13 health)
+[Day    5] [ACTIVITY  ] Zander Fell trees and chop wood, yielded {'timber': 1.2387604689331742, 'firewood': 1.858140703399761}
+[Day    5] [ACTIVITY  ] Lyra Gather wild berries and edible plants, yielded {'berries': 5.9878630389251875, 'plant_fiber': 1.1227243197984726}
+[Day    5] [ACTIVITY  ] Lyra Gather wild berries and edible plants, yielded {'berries': 6.544078072668507, 'plant_fiber': 1.227014638625345}
+[Day    5] [ACTIVITY  ] Helena Gather wild berries and edible plants, yielded {'berries': 5.4138217637427175, 'plant_fiber': 1.0150915807017595}
+[Day    5] [ACTIVITY  ] Helena Gather wild berries and edible plants, yielded {'berries': 5.538235154071466, 'plant_fiber': 1.0384190913884002}
+[Day    5] [ACTIVITY  ] Dorian Gather wild berries and edible plants, yielded {'berries': 5.466072401122057, 'plant_fiber': 1.0248885752103858}
+[Day    5] [ACTIVITY  ] Gideon Fell trees and chop wood, yielded {'timber': 1.2595405399356414, 'firewood': 1.889310809903462}
+[Day    5] [ACTIVITY  ] Gideon was injured during chop_wood (-18 health)
+[Day    5] [ACTIVITY  ] Clara Fell trees and chop wood, yielded {'timber': 1.2247298303223413, 'firewood': 1.8370947454835118}
+[Day    5] [ACTIVITY  ] Clara was injured during chop_wood (-10 health)
+[Day    5] [ACTIVITY  ] Liam Gather wild berries and edible plants, yielded {'berries': 5.874681441775824, 'plant_fiber': 1.1015027703329667}
+[Day    5] [ACTIVITY  ] Della's stone_knife broke
+[Day    5] [ACTIVITY  ] Oswin Fell trees and chop wood, yielded {'timber': 1.1959028387727337, 'firewood': 1.7938542581591006}
+[Day    5] [ACTIVITY  ] Una was injured during cook_food (-15 health)
+[Day    5] [ACTIVITY  ] Clara Gather wild berries and edible plants, yielded {'berries': 6.414455867470549, 'plant_fiber': 1.2027104751507278}
+[Day    5] [ACTIVITY  ] Clara was injured during gather_berries (-15 health)
+[Day    5] [ACTIVITY  ] Clara Gather wild berries and edible plants, yielded {'berries': 5.714515138132584, 'plant_fiber': 1.0714715883998596}
+[Day    5] [ACTIVITY  ] Clara Gather wild berries and edible plants, yielded {'berries': 5.528283894041862, 'plant_fiber': 1.036553230132849}
+[Day    5] [ACTIVITY  ] Clara Gather wild berries and edible plants, yielded {'berries': 5.590575834682414, 'plant_fiber': 1.0482329690029526}
+[Day    5] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 6.486421121659092, 'plant_fiber': 1.2162039603110797}
+[Day    5] [ACTIVITY  ] Fiona Gather wild berries and edible plants, yielded {'berries': 5.858644603382927, 'plant_fiber': 1.0984958631342987}
+[Day    5] [ACTIVITY  ] Gideon Fell trees and chop wood, yielded {'timber': 1.1407754608119565, 'firewood': 1.7111631912179346}
+[Day    5] [ACTIVITY  ] Gideon Fell trees and chop wood, yielded {'timber': 1.229942449606611, 'firewood': 1.844913674409916}
+[Day    5] [ACTIVITY  ] Luna Gather wild berries and edible plants, yielded {'berries': 6.5509610198036, 'plant_fiber': 1.2283051912131748}
+[Day    5] [ACTIVITY  ] Luna Gather wild berries and edible plants, yielded {'berries': 6.3486195838688655, 'plant_fiber': 1.1903661719754124}
+[Day    5] [ACTIVITY  ] Eva Gather wild berries and edible plants, yielded {'berries': 6.616011014179134, 'plant_fiber': 1.2405020651585876}
+[Day    5] [ACTIVITY  ] Magnus Fell trees and chop wood, yielded {'timber': 1.196513690195438, 'firewood': 1.7947705352931573}
