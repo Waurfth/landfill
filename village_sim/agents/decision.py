@@ -183,12 +183,14 @@ class DecisionEngine:
         target_resource_id = None
         target_pos = None
         travel_hours = 0.0
+        resource_node = None
         if activity.resource_type is not None:
             node = world_state.find_resource(
                 villager.current_position, activity.resource_type
             )
             if node is None or node.current_abundance <= 0:
                 return None
+            resource_node = node
             target_resource_id = node.node_id
             target_pos = node.position
             travel_hours = world_state.estimate_travel(
@@ -211,6 +213,11 @@ class DecisionEngine:
             weather_modifier=world_state.weather_modifier,
         )
         score *= success_prob
+
+        # Resource abundance feedback — depleted nodes make activities less attractive
+        if resource_node is not None:
+            abundance_ratio = resource_node.current_abundance / max(1, resource_node.max_abundance)
+            score *= (0.3 + 0.7 * abundance_ratio)  # 30% floor, scales with availability
 
         # Risk aversion
         risk_tolerance = villager.traits.risk_tolerance / 100.0
@@ -369,17 +376,21 @@ class WorldState:
         resource_manager: "ResourceManager",  # noqa: F821
         world_map: "WorldMap",  # noqa: F821
         family_inventories: dict[int, "Inventory"],  # noqa: F821
+        rng: Optional[Generator] = None,
     ) -> None:
         self.season = season
         self.weather_modifier = weather_modifier
         self._resource_manager = resource_manager
         self._world_map = world_map
         self._family_inventories = family_inventories
+        self._rng = rng
 
     def find_resource(
         self, position: tuple[int, int], resource_type: "ResourceType"  # noqa: F821
     ) -> Optional["ResourceNode"]:  # noqa: F821
-        return self._resource_manager.get_nearest_of_type(position, resource_type)
+        return self._resource_manager.get_nearest_of_type(
+            position, resource_type, rng=self._rng,
+        )
 
     def estimate_travel(
         self, start: tuple[int, int], end: tuple[int, int]

@@ -173,15 +173,19 @@ def _classify_terrain(elevation: float, moisture: float) -> str:
 
 
 def _carve_river(world_map: WorldMap, rng: Generator) -> None:
-    """Carve a river across the map from a high to low point."""
+    """Carve a river across the map from a high to low point (3 cells wide)."""
     # Start near the top, meander to the bottom
     x = rng.integers(world_map.width // 4, 3 * world_map.width // 4)
     for y in range(world_map.height):
-        world_map.grid[y][x].terrain_type = "river"
-        world_map.grid[y][x].elevation = 0.05
+        # Set 3-cell wide river (x-1, x, x+1)
+        for dx in range(-1, 2):
+            rx = x + dx
+            if 0 <= rx < world_map.width:
+                world_map.grid[y][rx].terrain_type = "river"
+                world_map.grid[y][rx].elevation = 0.05
         # Meander
         drift = rng.integers(-1, 2)  # -1, 0, or 1
-        x = max(1, min(world_map.width - 2, x + drift))
+        x = max(2, min(world_map.width - 3, x + drift))
 
     # Place a bridge near village center
     cx, cy = VILLAGE_CENTER

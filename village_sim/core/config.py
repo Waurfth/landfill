@@ -6,9 +6,9 @@ Every magic number in the codebase must reference this file.
 # =============================================================================
 # WORLD
 # =============================================================================
-MAP_WIDTH: int = 80
-MAP_HEIGHT: int = 80
-VILLAGE_CENTER: tuple[int, int] = (40, 40)
+MAP_WIDTH: int = 200
+MAP_HEIGHT: int = 200
+VILLAGE_CENTER: tuple[int, int] = (100, 100)
 CELL_SIZE_KM: float = 0.25  # each cell represents 250m
 
 TERRAIN_COSTS: dict[str, float] = {
@@ -109,18 +109,18 @@ SENTIMENT_DECAY_TOWARD_BASELINE: float = 0.02
 # =============================================================================
 # MOVEMENT
 # =============================================================================
-BASE_TRAVEL_SPEED: float = 5.0       # cells per hour, flat terrain, no load
+BASE_TRAVEL_SPEED: float = 8.0       # cells per hour, flat terrain, no load
 CARRY_CAPACITY_BASE: float = 30.0    # kg base, modified by strength
 FATIGUE_PER_TRAVEL_HOUR: float = 0.05
 
 # =============================================================================
 # RESOURCE REGENERATION
 # =============================================================================
-FOREST_REGEN_RATE: float = 0.005
-FISH_REGEN_RATE: float = 0.02
+FOREST_REGEN_RATE: float = 0.02
+FISH_REGEN_RATE: float = 0.08
 FARM_YIELD_SEASON: str = "autumn"
 MINE_REGEN_RATE: float = 0.0
-WILD_PLANTS_REGEN_RATE: float = 0.015
+WILD_PLANTS_REGEN_RATE: float = 0.08
 HERB_REGEN_RATE: float = 0.01
 
 # =============================================================================
@@ -141,7 +141,7 @@ MIN_DAILY_SOCIAL_INTERACTIONS: int = 1
 # =============================================================================
 # STARTING CONDITIONS
 # =============================================================================
-STARTING_FOOD_PER_PERSON: float = 30.0  # days of food
+STARTING_FOOD_PER_PERSON: float = 45.0  # days of food
 STARTING_TOOLS: bool = True
 STARTING_SHELTERS: bool = True
 
@@ -154,7 +154,7 @@ INTELLIGENCE_LEARNING_BONUS: float = 0.5  # max bonus from high intelligence
 # =============================================================================
 # TOOLS / DURABILITY
 # =============================================================================
-TOOL_DURABILITY_LOSS_PER_USE: float = 1.0  # per activity session
+TOOL_DURABILITY_LOSS_PER_USE: float = 0.5  # per activity session
 
 # =============================================================================
 # INVENTORY CAPACITY
@@ -165,14 +165,14 @@ COMMUNITY_INVENTORY_CAPACITY: float = 2000.0
 # =============================================================================
 # DECISION ENGINE
 # =============================================================================
-HABIT_INERTIA_BONUS: float = 0.15    # bonus for repeating yesterday's activity
+HABIT_INERTIA_BONUS: float = 0.05    # bonus for repeating yesterday's activity
 SATISFICE_THRESHOLD: float = 0.6     # "good enough" score to stop evaluating
 FATIGUE_STOP_THRESHOLD: float = 0.9  # too tired to continue
 
 # =============================================================================
 # FARMING / CROPS
 # =============================================================================
-CROP_GROWTH_DAYS: int = 150           # planting to harvestable
+CROP_GROWTH_DAYS: int = 90            # planting to harvestable
 CROP_FAILURE_FROST_THRESHOLD: float = 15.0  # temp below this kills crops
 CROP_FAILURE_DROUGHT_DAYS: int = 20   # consecutive no-rain days kills crops
 

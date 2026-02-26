@@ -18,15 +18,15 @@ from village_sim.core.config import (
 
 ITEM_CATALOG: dict[str, dict] = {
     # Food
-    "berries": {"weight": 0.5, "perishable": True, "perish_days": 5, "food_value": 0.5},
-    "raw_meat": {"weight": 2.0, "perishable": True, "perish_days": 3, "food_value": 1.0},
-    "cooked_meat": {"weight": 1.5, "perishable": True, "perish_days": 7, "food_value": 1.5},
+    "berries": {"weight": 0.5, "perishable": True, "perish_days": 10, "food_value": 0.8},
+    "raw_meat": {"weight": 2.0, "perishable": True, "perish_days": 5, "food_value": 1.2},
+    "cooked_meat": {"weight": 1.5, "perishable": True, "perish_days": 10, "food_value": 1.5},
     "dried_meat": {"weight": 1.0, "perishable": True, "perish_days": 60, "food_value": 1.2},
     "grain": {"weight": 1.0, "perishable": True, "perish_days": 180, "food_value": 0.8},
-    "bread": {"weight": 0.5, "perishable": True, "perish_days": 5, "food_value": 1.0},
-    "fish": {"weight": 1.5, "perishable": True, "perish_days": 2, "food_value": 1.0},
+    "bread": {"weight": 0.5, "perishable": True, "perish_days": 7, "food_value": 1.0},
+    "fish": {"weight": 1.5, "perishable": True, "perish_days": 5, "food_value": 1.0},
     "dried_fish": {"weight": 0.8, "perishable": True, "perish_days": 90, "food_value": 1.0},
-    "vegetables": {"weight": 1.0, "perishable": True, "perish_days": 10, "food_value": 0.5},
+    "vegetables": {"weight": 1.0, "perishable": True, "perish_days": 14, "food_value": 0.6},
     # Raw materials
     "timber": {"weight": 10.0, "perishable": False},
     "stone": {"weight": 15.0, "perishable": False},
@@ -39,8 +39,8 @@ ITEM_CATALOG: dict[str, dict] = {
     # Tools
     "stone_axe": {"weight": 2.0, "perishable": False, "tool_type": "axe", "max_durability": 50},
     "stone_knife": {"weight": 0.5, "perishable": False, "tool_type": "knife", "max_durability": 40},
-    "wooden_spear": {"weight": 2.0, "perishable": False, "tool_type": "spear", "max_durability": 30},
-    "fishing_rod": {"weight": 1.0, "perishable": False, "tool_type": "fishing", "max_durability": 40},
+    "wooden_spear": {"weight": 2.0, "perishable": False, "tool_type": "spear", "max_durability": 60},
+    "fishing_rod": {"weight": 1.0, "perishable": False, "tool_type": "fishing", "max_durability": 60},
     "bow": {"weight": 1.5, "perishable": False, "tool_type": "ranged", "max_durability": 60},
     "arrows": {"weight": 0.1, "perishable": False, "tool_type": "ammo"},
     "hoe": {"weight": 2.5, "perishable": False, "tool_type": "farming", "max_durability": 50},

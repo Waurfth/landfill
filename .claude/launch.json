@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "village-sim",
+      "runtimeExecutable": "C:\\Users\\ronwa\\AppData\\Local\\Python\\bin\\python3",
+      "runtimeArgs": ["-m", "village_sim", "--days", "360", "--no-dashboard", "--output-dir", "results"],
+      "port": 0
+    },
+    {
+      "name": "monte-carlo",
+      "runtimeExecutable": "C:\\Users\\ronwa\\AppData\\Local\\Python\\bin\\python3",
+      "runtimeArgs": ["village_sim/monte_carlo.py", "--runs", "20", "--days", "90", "--output-dir", "results/monte_carlo"],
+      "port": 0
+    }
+  ]
+}

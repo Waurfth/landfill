@@ -36,8 +36,8 @@ class ResourceType(Enum):
 # Default regeneration rates per resource type
 _REGEN_RATES: dict[ResourceType, float] = {
     ResourceType.TIMBER: FOREST_REGEN_RATE,
-    ResourceType.GAME_SMALL: 0.015,
-    ResourceType.GAME_LARGE: 0.008,
+    ResourceType.GAME_SMALL: 0.05,
+    ResourceType.GAME_LARGE: 0.04,
     ResourceType.FISH: FISH_REGEN_RATE,
     ResourceType.STONE: MINE_REGEN_RATE,
     ResourceType.CLAY: 0.001,
@@ -50,11 +50,11 @@ _REGEN_RATES: dict[ResourceType, float] = {
 
 # Seasonal modifiers: resource_type -> {season: multiplier}
 _SEASONAL_MODIFIERS: dict[ResourceType, dict[str, float]] = {
-    ResourceType.FISH: {"spring": 1.3, "summer": 1.0, "autumn": 0.8, "winter": 0.5},
-    ResourceType.GAME_SMALL: {"spring": 1.2, "summer": 1.0, "autumn": 0.9, "winter": 0.6},
-    ResourceType.GAME_LARGE: {"spring": 1.0, "summer": 0.9, "autumn": 1.3, "winter": 0.7},
-    ResourceType.WILD_PLANTS: {"spring": 1.3, "summer": 1.5, "autumn": 0.8, "winter": 0.2},
-    ResourceType.MEDICINAL_HERBS: {"spring": 1.2, "summer": 1.4, "autumn": 0.6, "winter": 0.1},
+    ResourceType.FISH: {"spring": 1.3, "summer": 1.0, "autumn": 0.8, "winter": 0.6},
+    ResourceType.GAME_SMALL: {"spring": 1.2, "summer": 1.0, "autumn": 0.9, "winter": 0.7},
+    ResourceType.GAME_LARGE: {"spring": 1.0, "summer": 0.9, "autumn": 1.3, "winter": 0.8},
+    ResourceType.WILD_PLANTS: {"spring": 1.3, "summer": 1.5, "autumn": 1.0, "winter": 0.4},
+    ResourceType.MEDICINAL_HERBS: {"spring": 1.2, "summer": 1.4, "autumn": 0.6, "winter": 0.2},
 }
 
 
@@ -122,20 +122,38 @@ class ResourceManager:
             node.regenerate(season)
 
     def get_nearest_of_type(
-        self, position: tuple[int, int], resource_type: ResourceType
+        self, position: tuple[int, int], resource_type: ResourceType,
+        rng: Optional[Generator] = None,
     ) -> Optional[ResourceNode]:
-        """Find the nearest node of a given type."""
-        best: Optional[ResourceNode] = None
-        best_dist = float("inf")
+        """Find a nearby node of a given type.
+
+        When *rng* is provided, pick randomly from the closest candidates
+        (within 50% extra distance of the absolute nearest) so that
+        villagers spread out across resource nodes instead of all
+        targeting the same one.
+        """
         px, py = position
+        # Gather all viable candidates with their distances
+        candidates: list[tuple[float, ResourceNode]] = []
         for node in self._nodes.values():
             if node.resource_type == resource_type and node.current_abundance > 0:
                 nx, ny = node.position
                 dist = abs(nx - px) + abs(ny - py)
-                if dist < best_dist:
-                    best_dist = dist
-                    best = node
-        return best
+                candidates.append((dist, node))
+
+        if not candidates:
+            return None
+
+        candidates.sort(key=lambda t: t[0])
+        best_dist = candidates[0][0]
+
+        if rng is not None and len(candidates) > 1:
+            # Accept any node within 50% extra distance of nearest
+            threshold = best_dist * 1.5 + 5  # +5 to give a minimum radius
+            nearby = [node for dist, node in candidates if dist <= threshold]
+            return rng.choice(nearby)
+
+        return candidates[0][1]
 
     def get_all_in_radius(
         self,
@@ -172,15 +190,16 @@ class ResourceManager:
 
         if terrain == "light_forest":
             options.append((ResourceType.TIMBER, 0.3, 50.0, 0.02, ["axe"]))
-            options.append((ResourceType.WILD_PLANTS, 0.2, 30.0, 0.01, []))
-            options.append((ResourceType.GAME_SMALL, 0.15, 20.0, 0.03, []))
+            options.append((ResourceType.WILD_PLANTS, 0.25, 100.0, 0.01, []))
+            options.append((ResourceType.GAME_SMALL, 0.15, 80.0, 0.03, []))
         elif terrain == "dense_forest":
             options.append((ResourceType.TIMBER, 0.5, 80.0, 0.04, ["axe"]))
-            options.append((ResourceType.GAME_LARGE, 0.2, 15.0, 0.12, ["spear"]))
-            options.append((ResourceType.GAME_SMALL, 0.25, 25.0, 0.05, []))
-            options.append((ResourceType.MEDICINAL_HERBS, 0.1, 10.0, 0.02, []))
+            options.append((ResourceType.GAME_LARGE, 0.2, 100.0, 0.12, ["spear"]))
+            options.append((ResourceType.GAME_SMALL, 0.25, 80.0, 0.05, []))
+            options.append((ResourceType.WILD_PLANTS, 0.20, 80.0, 0.01, []))
+            options.append((ResourceType.MEDICINAL_HERBS, 0.1, 15.0, 0.02, []))
         elif terrain == "river":
-            options.append((ResourceType.FISH, 0.6, 40.0, 0.02, ["fishing"]))
+            options.append((ResourceType.FISH, 0.7, 150.0, 0.02, ["fishing"]))
             options.append((ResourceType.FRESH_WATER, 0.9, 100.0, 0.0, []))
         elif terrain == "rocky":
             options.append((ResourceType.STONE, 0.4, 60.0, 0.06, ["pickaxe"]))
@@ -188,9 +207,9 @@ class ResourceManager:
         elif terrain == "hills":
             options.append((ResourceType.STONE, 0.2, 40.0, 0.05, ["pickaxe"]))
             options.append((ResourceType.CLAY, 0.15, 30.0, 0.01, []))
-            options.append((ResourceType.GAME_SMALL, 0.1, 15.0, 0.04, []))
+            options.append((ResourceType.GAME_SMALL, 0.1, 60.0, 0.04, []))
         elif terrain == "grassland":
-            options.append((ResourceType.WILD_PLANTS, 0.1, 20.0, 0.01, []))
+            options.append((ResourceType.WILD_PLANTS, 0.15, 80.0, 0.01, []))
             options.append((ResourceType.FARMLAND, 0.08, 100.0, 0.0, []))
         elif terrain == "swamp":
             options.append((ResourceType.CLAY, 0.3, 40.0, 0.04, []))

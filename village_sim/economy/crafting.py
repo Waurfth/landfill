@@ -46,7 +46,7 @@ RECIPES: dict[str, Recipe] = {
         name="stone_axe",
         inputs={"stone": 1, "timber": 1, "plant_fiber": 1},
         outputs={"stone_axe": 1},
-        skill_requirement=5,
+        skill_requirement=2,
     ),
     "stone_knife": Recipe(
         name="stone_knife",
@@ -59,7 +59,7 @@ RECIPES: dict[str, Recipe] = {
         inputs={"timber": 1},
         outputs={"wooden_spear": 1},
         tool_requirements=["knife"],
-        skill_requirement=5,
+        skill_requirement=2,
     ),
     "bow": Recipe(
         name="bow",
@@ -80,13 +80,13 @@ RECIPES: dict[str, Recipe] = {
         inputs={"timber": 1, "plant_fiber": 1},
         outputs={"fishing_rod": 1},
         tool_requirements=["knife"],
-        skill_requirement=10,
+        skill_requirement=5,
     ),
     "hoe": Recipe(
         name="hoe",
         inputs={"timber": 1, "stone": 1},
         outputs={"hoe": 1},
-        skill_requirement=10,
+        skill_requirement=5,
     ),
     "pickaxe": Recipe(
         name="pickaxe",
@@ -130,14 +130,14 @@ RECIPES: dict[str, Recipe] = {
         inputs={"raw_meat": 2, "firewood": 1},
         outputs={"dried_meat": 1.5},
         activity="preserve_food",
-        skill_requirement=15,
+        skill_requirement=5,
     ),
     "dried_fish": Recipe(
         name="dried_fish",
         inputs={"fish": 2, "firewood": 0.5},
         outputs={"dried_fish": 1.5},
         activity="preserve_food",
-        skill_requirement=10,
+        skill_requirement=3,
     ),
     "bread": Recipe(
         name="bread",

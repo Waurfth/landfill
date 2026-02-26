@@ -324,6 +324,13 @@ class SimulationEngine:
                 resource_node = None
                 if plan.target_resource_id is not None:
                     resource_node = self.resource_manager.get_node(plan.target_resource_id)
+                    # Fallback: if planned node is depleted, find a nearby alternative
+                    if resource_node and resource_node.current_abundance <= 0 and act.resource_type:
+                        alt = self.resource_manager.get_nearest_of_type(
+                            villager.current_position, act.resource_type, rng=self.rng,
+                        )
+                        if alt and alt.current_abundance > 0:
+                            resource_node = alt
 
                 for item_type, qty in yields.items():
                     if resource_node:
@@ -829,6 +836,7 @@ class SimulationEngine:
             resource_manager=self.resource_manager,
             world_map=self.world_map,
             family_inventories=family_inventories,
+            rng=self.rng,
         )
 
     def _quick_travel_estimate(self, start: tuple[int, int], end: tuple[int, int]) -> float:
@@ -876,9 +884,9 @@ class SimulationEngine:
             i += 1
 
     def _distribute_starting_food(self) -> None:
-        """Give families starting food reserves."""
+        """Give families starting food reserves (long-shelf-life items)."""
         for fam in self.family_manager.families.values():
             food_amount = STARTING_FOOD_PER_PERSON * len(fam.member_ids)
-            fam.inventory.add(create_item("grain", food_amount * 0.4))
+            fam.inventory.add(create_item("grain", food_amount * 0.5))
             fam.inventory.add(create_item("dried_meat", food_amount * 0.3))
-            fam.inventory.add(create_item("berries", food_amount * 0.3))
+            fam.inventory.add(create_item("dried_fish", food_amount * 0.2))

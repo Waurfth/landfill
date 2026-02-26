@@ -9,7 +9,17 @@
       "Bash(pip install:*)",
       "Bash(py:*)",
       "Bash(python -m pip install:*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(find:*)",
+      "Bash(wc:*)",
+      "Bash(where:*)",
+      "Bash(python3:*)",
+      "Bash(/c/Users/ronwa/AppData/Local/Python/bin/python3:*)",
+      "Bash(\"C:\\\\Users\\\\ronwa\\\\AppData\\\\Local\\\\Python\\\\bin\\\\python3\" -m village_sim --days 90 --no-dashboard --seed 42)",
+      "Bash(\"C:\\\\Users\\\\ronwa\\\\AppData\\\\Local\\\\Python\\\\bin\\\\python3\" -m village_sim --days 360 --no-dashboard --seed 42)",
+      "Bash(\"C:\\\\Users\\\\ronwa\\\\AppData\\\\Local\\\\Python\\\\bin\\\\python3\" village_sim/monte_carlo.py --runs 10 --days 180 --output-dir results/monte_carlo)",
+      "Bash(\"C:\\\\Users\\\\ronwa\\\\AppData\\\\Local\\\\Python\\\\bin\\\\python3\" -c \":*)",
+      "Bash(\"C:\\\\Users\\\\ronwa\\\\AppData\\\\Local\\\\Python\\\\bin\\\\python3\" run_simulation.py --days 30 --seed 42)"
     ]
   }
 }

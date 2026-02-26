@@ -194,6 +194,14 @@ class Villager:
         if self.is_elder and rng.random() < 0.01:
             self.health = max(0, self.health - rng.uniform(0.5, 2.0))
 
+        # Passive health recovery: well-fed, rested villagers heal naturally
+        hunger_sat = self.needs.needs["hunger"].satisfaction
+        rest_sat = self.needs.needs["rest"].satisfaction
+        if hunger_sat > 0.3 and self.fatigue < 0.5 and self.health < 100:
+            # Recover 0.5-2.0 HP/day depending on how well-nourished and rested
+            recovery = 0.5 + 1.5 * min(hunger_sat, rest_sat)
+            self.health = min(100.0, self.health + recovery)
+
         # Death check (old age or critically low health)
         if self.health <= 0:
             self.die("health_failure")
