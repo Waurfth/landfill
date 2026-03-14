@@ -7,8 +7,10 @@ from dataclasses import dataclass, field
 
 from village_sim.core.config import (
     COMFORT_DECAY_RATE,
+    FIREWOOD_WARMTH_SATISFACTION,
     HUNGER_DECAY_RATE,
     NEED_WEIGHTS,
+    NO_FIREWOOD_WINTER_PENALTY,
     PURPOSE_DECAY_RATE,
     REST_DECAY_RATE,
     SAFETY_DECAY_RATE,
@@ -71,7 +73,7 @@ class NeedSystem:
             "health": Need("health", 1.0, 0.0, NEED_WEIGHTS["health"], "exponential"),  # no natural decay
             "social": Need("social", 1.0, SOCIAL_DECAY_RATE, NEED_WEIGHTS["social"], "linear"),
             "purpose": Need("purpose", 1.0, PURPOSE_DECAY_RATE, NEED_WEIGHTS["purpose"], "linear"),
-            "comfort": Need("comfort", 0.5, COMFORT_DECAY_RATE, NEED_WEIGHTS["comfort"], "linear"),
+            "comfort": Need("comfort", 1.0, COMFORT_DECAY_RATE, NEED_WEIGHTS["comfort"], "linear"),
         }
 
     def get_most_urgent(self) -> Need:
@@ -93,14 +95,24 @@ class NeedSystem:
         shelter_quality: float = 0.0,
         had_social_interaction: bool = False,
         was_productive: bool = False,
+        has_firewood: bool = False,
+        is_winter: bool = False,
     ) -> None:
         """Decay all needs for one day with situational modifiers."""
+        unsheltered = shelter_quality <= 0.0
+
         for name, need in self.needs.items():
             modifier = 1.0
             if name == "warmth":
                 modifier = warmth_modifier
                 # Good shelter reduces warmth decay
                 modifier *= max(0.3, 1.0 - shelter_quality * 0.7)
+                # No shelter in winter is brutal
+                if unsheltered:
+                    modifier *= 1.5
+                # No firewood in winter increases warmth decay
+                if is_winter and not has_firewood:
+                    modifier *= NO_FIREWOOD_WINTER_PENALTY
             elif name == "shelter":
                 modifier = max(0.1, 1.0 - shelter_quality)
             elif name == "social":
@@ -111,8 +123,20 @@ class NeedSystem:
                     modifier = 0.0
             elif name == "health":
                 continue  # health doesn't decay naturally
+            elif name == "comfort":
+                # No shelter = exposed to elements = faster comfort loss
+                if unsheltered:
+                    modifier *= 2.0
+            elif name == "rest":
+                # Poor sleep without shelter
+                if unsheltered:
+                    modifier *= 1.3
 
             need.decay(modifier)
+
+        # Firewood provides active warmth satisfaction
+        if has_firewood:
+            self.needs["warmth"].satisfy(FIREWOOD_WARMTH_SATISFACTION)
 
     def overall_wellbeing(self) -> float:
         """Weighted average of all satisfactions (0-1)."""

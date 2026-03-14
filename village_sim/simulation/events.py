@@ -137,15 +137,23 @@ class EventSystem:
         villagers_by_id: dict[int, "Villager"],  # noqa: F821
         family_manager: "FamilyManager",  # noqa: F821
         infrastructure: "InfrastructureManager",  # noqa: F821
+        resource_manager: Optional["ResourceManager"] = None,  # noqa: F821
     ) -> None:
         """Apply event effects to the simulation state."""
         for event in events:
             if event.event_type == "storm":
-                # Damage shelters
+                # Damage all structures (shelters, wells, meeting halls, etc.)
                 damage = event.data["shelter_damage"]
                 for s in infrastructure.structures:
-                    if s.structure_type == "shelter":
-                        s.durability = max(0, s.durability - damage)
+                    s.durability = max(0, s.durability - damage)
+                # Storm episode for all villagers in shelters that took heavy damage
+                if damage > 0.1:
+                    for vid, v in villagers_by_id.items():
+                        if v.is_alive:
+                            v.memory.add_episode(
+                                event.day, "storm_damage",
+                                "survived a severe storm", -0.2,
+                            )
 
             elif event.event_type == "disease":
                 health_damage = event.data["health_damage"]
@@ -154,16 +162,50 @@ class EventSystem:
                     if v and v.is_alive:
                         v.health = max(0, v.health - health_damage)
                         v.needs.satisfy("health", -health_damage / 100.0)
-                        v.memory.add_event(event.day, "fell_sick", -0.3)
+                        impact = -0.3 - 0.2 * (health_damage / 30.0)
+                        v.memory.add_episode(
+                            event.day, "illness", "fell sick from disease",
+                            impact,
+                        )
 
             elif event.event_type == "pest":
                 loss_frac = event.data["food_loss_fraction"]
+                # Granary reduces pest losses
+                bonuses = infrastructure.get_village_bonuses()
+                granary_reduction = bonuses.get("granary_pest_reduction", 0.0)
+                if granary_reduction > 0:
+                    from village_sim.core.config import GRANARY_PEST_REDUCTION
+                    loss_frac *= max(0.1, 1.0 - GRANARY_PEST_REDUCTION * granary_reduction)
                 for fam in family_manager.families.values():
                     for item_type in list(fam.inventory.items.keys()):
                         from village_sim.economy.inventory import ITEM_CATALOG
                         if "food_value" in ITEM_CATALOG.get(item_type, {}):
                             for item in fam.inventory.items.get(item_type, []):
                                 item.quantity *= (1.0 - loss_frac)
+
+            elif event.event_type == "predator":
+                danger_inc = event.data["danger_increase"]
+                # Raise danger on outdoor resource nodes (hunting/gathering/fishing)
+                if resource_manager is not None:
+                    for node in resource_manager.nodes:
+                        if node.resource_type.value in (
+                            "game_small", "game_large", "wild_plants", "fish",
+                        ):
+                            node.danger_level = min(
+                                1.0, node.danger_level + danger_inc,
+                            )
+                # Predator episode for villagers currently outside (doing outdoor work)
+                outdoor_activities = {
+                    "hunt_large_game", "hunt_small_game", "gather_berries",
+                    "gather_wood", "gather_stone", "fishing", "chop_wood",
+                }
+                for vid, v in villagers_by_id.items():
+                    if v.is_alive and v.current_activity in outdoor_activities:
+                        v.memory.add_episode(
+                            event.day, "predator_encounter",
+                            "spotted a predator while working outside", -0.3,
+                            activity=v.current_activity,
+                        )
 
             elif event.event_type == "festival":
                 boost = event.data["sentiment_boost"]
@@ -173,4 +215,7 @@ class EventSystem:
                         v.current_sentiment = min(100, v.current_sentiment + boost)
                         v.needs.satisfy("social", 0.3)
                         v.needs.satisfy("purpose", 0.2)
-                        v.memory.add_event(event.day, "festival", 0.5)
+                        v.memory.add_episode(
+                            event.day, "festival",
+                            "celebrated at a village festival", 0.5,
+                        )

@@ -32,6 +32,14 @@ def run() -> None:
     parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducibility")
     parser.add_argument("--output-dir", type=str, default="results", help="Output directory")
     parser.add_argument("--verbosity", type=int, default=0, choices=[0, 1, 2, 3])
+    parser.add_argument(
+        "--grid", action="store_true",
+        help="Launch Dwarf Fortress-style grid view (live simulation)",
+    )
+    parser.add_argument(
+        "--grid-speed", type=int, default=50,
+        help="Grid view animation speed in ms per frame (lower = faster)",
+    )
     args = parser.parse_args()
 
     from village_sim.simulation.engine import SimulationEngine
@@ -66,23 +74,33 @@ def run() -> None:
     print(f"  Shelters  : {len(engine.infrastructure.structures)}")
     print()
 
-    # ── Run simulation with progress ────────────────────────────────────
-    print(f"Simulating {args.days} days ...")
-    t0 = time.time()
-    total = args.days
-    milestone = max(1, total // 10)
+    # ── Grid view mode ───────────────────────────────────────────────────
+    if args.grid:
+        from village_sim.viz.grid_view import WorldGridView
+        print("Launching Dwarf Fortress-style grid view ...")
+        print("  Controls: WASD=Pan  Z/X=Zoom  C=Center  R=Resources  G=Grid  Space=Pause  Q=Quit")
+        print()
+        view = WorldGridView(engine)
+        view.run_live(days=args.days, speed=args.grid_speed)
 
-    try:
-        for i in range(total):
-            engine.tick()
-            if (i + 1) % milestone == 0 or (i + 1) == total:
-                pct = (i + 1) / total * 100
-                elapsed = time.time() - t0
-                rate = (i + 1) / max(0.01, elapsed)
-                pop = sum(1 for v in engine.villagers if v.is_alive)
-                print(f"  Day {i + 1:>4}/{total}  ({pct:5.1f}%)  |  Pop: {pop}  |  {rate:.1f} days/s")
-    except KeyboardInterrupt:
-        print("\n  Interrupted by user.")
+    else:
+        # ── Run simulation with progress ──────────────────────────────
+        print(f"Simulating {args.days} days ...")
+        t0_run = time.time()
+        total = args.days
+        milestone = max(1, total // 10)
+
+        try:
+            for i in range(total):
+                engine.tick()
+                if (i + 1) % milestone == 0 or (i + 1) == total:
+                    pct = (i + 1) / total * 100
+                    elapsed = time.time() - t0_run
+                    rate = (i + 1) / max(0.01, elapsed)
+                    pop = sum(1 for v in engine.villagers if v.is_alive)
+                    print(f"  Day {i + 1:>4}/{total}  ({pct:5.1f}%)  |  Pop: {pop}  |  {rate:.1f} days/s")
+        except KeyboardInterrupt:
+            print("\n  Interrupted by user.")
 
     elapsed = time.time() - t0
     print(f"\nSimulation finished in {elapsed:.1f}s")

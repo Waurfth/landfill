@@ -11,8 +11,23 @@ from village_sim.agents.decision import DecisionEngine, WorldState
 from village_sim.agents.villager import Villager, generate_initial_population
 from village_sim.core.clock import SimClock
 from village_sim.core.config import (
+    FIREWOOD_DAILY_CONSUMPTION,
+    GRANARY_PEST_REDUCTION,
+    GRANARY_SAFETY_BONUS,
+    GRANARY_STONE_COST,
+    GRANARY_TIMBER_COST,
     INITIAL_POPULATION,
+    MEETING_HALL_COMFORT_BONUS,
+    MEETING_HALL_SOCIAL_BONUS,
+    MEETING_HALL_STONE_COST,
+    MEETING_HALL_TIMBER_COST,
     PREGNANCY_DURATION_DAYS,
+    SHELTER_COMFORT_BONUS,
+    SHELTER_WARMTH_BONUS,
+    SHELTER_SAFETY_BONUS,
+    SHELTER_SHELTER_BONUS,
+    SHELTER_STONE_COST,
+    SHELTER_TIMBER_COST,
     STARTING_FOOD_PER_PERSON,
     STARTING_SHELTERS,
     STARTING_TOOLS,
@@ -20,8 +35,10 @@ from village_sim.core.config import (
     VILLAGE_CENTER,
     WATER_AUTO_SATISFY_AMOUNT,
     WATER_PROXIMITY_RADIUS,
+    WELL_STONE_COST,
+    WELL_THIRST_BONUS,
 )
-from village_sim.economy.activities import ACTIVITIES
+from village_sim.economy.activities import ACTIVITIES, ACTIVITY_NEED_MAPPING
 from village_sim.economy.crafting import RECIPES, execute_craft, get_craftable_recipes
 from village_sim.economy.inventory import (
     CommunityInventory,
@@ -147,6 +164,7 @@ class SimulationEngine:
         if events:
             self.event_system.apply_events(
                 events, self._villager_map, self.family_manager, self.infrastructure,
+                self.resource_manager,
             )
             for event in events:
                 self.logger.log("EVENT", event.description, day=day)
@@ -195,20 +213,64 @@ class SimulationEngine:
         for fam in self.family_manager.families.values():
             fam.distribute_food(self._villager_map)
 
-        # 9. NIGHT — Need updates
+        # 9. NIGHT — Need updates (firewood consumption + infrastructure bonuses)
+        is_winter = self.clock.season == "winter"
+        village_bonuses = self.infrastructure.get_village_bonuses()
+
+        # Consume firewood once per family (not per villager)
+        families_with_firewood: set[int] = set()
+        for fam in self.family_manager.families.values():
+            if fam.inventory.total_of("firewood") >= FIREWOOD_DAILY_CONSUMPTION:
+                fam.inventory.remove("firewood", FIREWOOD_DAILY_CONSUMPTION)
+                families_with_firewood.add(fam.family_id)
+
         for v in alive:
             shelter_quality = self.infrastructure.shelter_quality_for(v.family_id)
             warmth_mod = self.climate.warmth_need_modifier()
             had_social = v.needs.needs["social"].satisfaction > 0.7
             was_productive = v.current_activity not in ("rest", "socialize", "")
 
+            has_firewood = v.family_id in families_with_firewood
+
             v.needs.daily_decay(
                 warmth_modifier=warmth_mod,
                 shelter_quality=shelter_quality,
                 had_social_interaction=had_social,
                 was_productive=was_productive,
+                has_firewood=has_firewood,
+                is_winter=is_winter,
             )
+
+            # Infrastructure bonuses from shelter
+            if shelter_quality > 0:
+                v.needs.satisfy("comfort", SHELTER_COMFORT_BONUS)
+                v.needs.satisfy("warmth", SHELTER_WARMTH_BONUS * shelter_quality)
+                v.needs.satisfy("shelter", SHELTER_SHELTER_BONUS * shelter_quality)
+                v.needs.satisfy("safety", SHELTER_SAFETY_BONUS)
+            if village_bonuses.get("well", 0) > 0:
+                v.needs.satisfy("thirst", village_bonuses["well"])
+            if village_bonuses.get("meeting_hall_social", 0) > 0:
+                v.needs.satisfy("social", village_bonuses["meeting_hall_social"])
+                v.needs.satisfy("comfort", village_bonuses.get("meeting_hall_comfort", 0))
+            if village_bonuses.get("granary_safety", 0) > 0:
+                v.needs.satisfy("safety", village_bonuses["granary_safety"])
+
             v.daily_update(day, self.climate, self.rng)
+
+            # Starvation episode (max once per 10 days)
+            if v.needs.needs["hunger"].satisfaction < 0.1:
+                recent_starvation = any(
+                    ep.category == "starvation" and day - ep.day < 10
+                    for ep in v.memory.episodes
+                )
+                if not recent_starvation:
+                    v.memory.add_episode(
+                        day, "starvation", "starving and desperate", -0.5,
+                    )
+
+            # Daily memory maintenance
+            v.memory.consolidate_memories(v.traits.emotional_stability)
+            v.memory.decay_biases()
 
         # 10. NIGHT — Sentiment contagion
         self.influence_system.spread_sentiment(self.villagers, self.relationship_manager)
@@ -314,6 +376,20 @@ class SimulationEngine:
                 self._handle_farming(villager, plan.activity_name, success, tended_positions, day)
             elif plan.activity_name == "build_shelter":
                 self._handle_building(villager, success, day)
+            elif plan.activity_name == "build_well":
+                self._handle_building_communal(
+                    villager, "well", success, day, 0, WELL_STONE_COST,
+                )
+            elif plan.activity_name == "build_meeting_hall":
+                self._handle_building_communal(
+                    villager, "meeting_hall", success, day,
+                    MEETING_HALL_TIMBER_COST, MEETING_HALL_STONE_COST,
+                )
+            elif plan.activity_name == "build_granary":
+                self._handle_building_communal(
+                    villager, "granary", success, day,
+                    GRANARY_TIMBER_COST, GRANARY_STONE_COST,
+                )
             elif plan.activity_name == "explore":
                 self._handle_explore(villager, success, day)
             elif plan.activity_name == "heal_villager":
@@ -353,6 +429,13 @@ class SimulationEngine:
                     day=day,
                 )
 
+                # Memorable success episodes
+                if plan.activity_name == "hunt_large_game":
+                    villager.memory.add_episode(
+                        day, "successful_hunt", "brought down large game",
+                        0.4, activity="hunt_large_game",
+                    )
+
             # XP gain
             xp_cat = act.xp_category or act.name
             if xp_cat:
@@ -375,7 +458,17 @@ class SimulationEngine:
             if act.danger_level > 0 and self.rng.random() < act.danger_level:
                 damage = float(self.rng.uniform(5, 20))
                 villager.health = max(0, villager.health - damage)
-                villager.memory.add_event(day, f"injured during {act.name}", -0.3)
+                impact = -0.3 - 0.3 * (damage / 20.0)  # -0.3 to -0.6
+                villager.memory.add_episode(
+                    day, "injury", f"injured during {act.name}",
+                    impact, activity=act.name,
+                )
+                # Near-death episode
+                if villager.health < 15:
+                    villager.memory.add_episode(
+                        day, "near_death", "nearly died from injuries", -0.8,
+                        activity=act.name,
+                    )
                 self.logger.log(
                     "ACTIVITY",
                     f"{villager.name} was injured during {act.name} (-{damage:.0f} health)",
@@ -384,6 +477,11 @@ class SimulationEngine:
 
             # Purpose satisfaction from productive work
             villager.needs.satisfy("purpose", 0.1)
+
+            # Satisfy needs mapped to this activity (small amounts)
+            for need_name in ACTIVITY_NEED_MAPPING.get(plan.activity_name, []):
+                if need_name != "hunger":  # hunger handled by food distribution
+                    villager.needs.satisfy(need_name, 0.05)
 
     def _handle_crafting(self, villager: Villager, success: bool, day: int) -> None:
         """Handle crafting activity — pick best recipe and craft."""
@@ -434,6 +532,8 @@ class SimulationEngine:
         if success:
             skill = villager.memory.skill_level("cooking", villager.traits.intelligence)
             produced = execute_craft(recipe, source_inv, skill, float(self.rng.random()))
+            # Cooking a meal satisfies comfort (warm food, homely feeling)
+            villager.needs.satisfy("comfort", 0.15)
             self.logger.log(
                 "ACTIVITY", f"{villager.name} cooked {produced}",
                 villager_ids=[villager.id], day=day,
@@ -478,6 +578,13 @@ class SimulationEngine:
                 fam.inventory.add(create_item("grain", grain_qty))
                 fam.inventory.add(create_item("vegetables", veg_qty))
                 self.crop_manager.remove_harvested(plot)
+                # Bountiful harvest episode (yield > 1.5x base)
+                if grain_qty > 4.5:  # base yield ~3.0
+                    villager.memory.add_episode(
+                        day, "bountiful_harvest",
+                        f"reaped a bountiful harvest of {grain_qty:.0f} grain", 0.5,
+                        activity="farm_harvest",
+                    )
                 self.logger.log(
                     "ACTIVITY",
                     f"{villager.name} harvested {grain_qty:.1f} grain, {veg_qty:.1f} vegetables",
@@ -494,18 +601,67 @@ class SimulationEngine:
 
         existing = self.infrastructure.get_shelter_for(fam.family_id)
         if existing:
-            # Improve existing shelter
+            # Improve existing shelter (repair doesn't cost materials)
             self.infrastructure.repair(existing.structure_id, 0.1)
             existing.quality = min(1.0, existing.quality + 0.02)
         else:
-            # Build new shelter
+            # Build new shelter — requires materials
+            inv = fam.inventory
+            if inv.total_of("timber") < SHELTER_TIMBER_COST or inv.total_of("stone") < SHELTER_STONE_COST:
+                return  # not enough materials
+            inv.remove("timber", SHELTER_TIMBER_COST)
+            inv.remove("stone", SHELTER_STONE_COST)
             shelter = self.infrastructure.create_structure(
                 "shelter", villager.home_position,
                 quality=0.3, owner_family_id=fam.family_id,
             )
             fam.shelter_id = shelter.structure_id
+            villager.memory.add_episode(
+                day, "built_shelter", "built a new shelter for the family", 0.4,
+            )
             self.logger.log(
                 "ACTIVITY", f"{villager.name} built a new shelter",
+                villager_ids=[villager.id], day=day,
+            )
+
+    def _handle_building_communal(
+        self, villager: Villager, structure_type: str, success: bool, day: int,
+        timber_cost: float, stone_cost: float,
+    ) -> None:
+        """Handle communal building construction (well, meeting_hall, granary)."""
+        if not success:
+            return
+        fam = self.family_manager.get_family(villager.family_id)
+        if fam is None:
+            return
+
+        existing = self.infrastructure.get_structure_of_type(structure_type)
+        if existing:
+            # Improve/repair existing communal building
+            self.infrastructure.repair(existing.structure_id, 0.1)
+            existing.quality = min(1.0, existing.quality + 0.02)
+            self.logger.log(
+                "ACTIVITY", f"{villager.name} repaired the {structure_type.replace('_', ' ')}",
+                villager_ids=[villager.id], day=day,
+            )
+        else:
+            # Build new communal structure — requires materials
+            inv = fam.inventory
+            if inv.total_of("timber") < timber_cost or inv.total_of("stone") < stone_cost:
+                return  # not enough materials
+            inv.remove("timber", timber_cost)
+            inv.remove("stone", stone_cost)
+            self.infrastructure.create_structure(
+                structure_type, villager.home_position,
+                quality=0.3, owner_family_id=None,  # communal
+            )
+            villager.memory.add_episode(
+                day, "built_communal",
+                f"built a {structure_type.replace('_', ' ')} for the village", 0.5,
+            )
+            self.logger.log(
+                "ACTIVITY",
+                f"{villager.name} built a {structure_type.replace('_', ' ')} for the village",
                 villager_ids=[villager.id], day=day,
             )
 
@@ -551,6 +707,10 @@ class SimulationEngine:
             if inv.has("medicine"):
                 inv.remove("medicine", 1)
                 heal_amount *= 1.5
+            villager.memory.add_episode(
+                day, "healed", f"healed {target.name}", 0.3,
+                other_villager_id=target.id,
+            )
 
     # ------------------------------------------------------------------
     # Social phase
@@ -694,6 +854,15 @@ class SimulationEngine:
                             sum(offer.offering.values()) + sum(offer.requesting.values())
                         )
                         self.metrics.record_trade(items_exchanged)
+                        # Episode for both traders
+                        villager.memory.add_episode(
+                            day, "trade_success", f"traded with {partner.name}",
+                            0.2, other_villager_id=partner.id,
+                        )
+                        partner.memory.add_episode(
+                            day, "trade_success", f"traded with {villager.name}",
+                            0.2, other_villager_id=villager.id,
+                        )
                         self.logger.log(
                             "TRADE",
                             f"{villager.name} traded {offer.offering} to {partner.name} "
@@ -706,6 +875,13 @@ class SimulationEngine:
                     self.relationship_manager.record_interaction(
                         villager.id, partner.id, False, 0.2, day,
                     )
+                    # Trade betrayal if trust was high
+                    if rel.trust > 0.3:
+                        villager.memory.add_episode(
+                            day, "trade_betrayal",
+                            f"trade rejected by {partner.name}", -0.15,
+                            other_villager_id=partner.id,
+                        )
 
                 rounds += 1
 
@@ -715,17 +891,21 @@ class SimulationEngine:
 
     def _auto_satisfy_thirst(self, alive: list[Villager]) -> None:
         """Auto-satisfy thirst for villagers near water sources."""
-        water_nodes = self.resource_manager.get_all_in_radius(
-            VILLAGE_CENTER, 100, ResourceType.FRESH_WATER,
-        )
-        water_positions = set()
-        for node in water_nodes:
-            # Include positions within radius of water
-            for dx in range(-WATER_PROXIMITY_RADIUS, WATER_PROXIMITY_RADIUS + 1):
-                for dy in range(-WATER_PROXIMITY_RADIUS, WATER_PROXIMITY_RADIUS + 1):
-                    if abs(dx) + abs(dy) <= WATER_PROXIMITY_RADIUS:
-                        water_positions.add((node.position[0] + dx, node.position[1] + dy))
+        # Cache water positions (only recompute if not yet built)
+        if not hasattr(self, "_water_positions_cache"):
+            water_nodes = self.resource_manager.get_all_in_radius(
+                VILLAGE_CENTER, 100, ResourceType.FRESH_WATER,
+            )
+            self._water_positions_cache: set[tuple[int, int]] = set()
+            for node in water_nodes:
+                for dx in range(-WATER_PROXIMITY_RADIUS, WATER_PROXIMITY_RADIUS + 1):
+                    for dy in range(-WATER_PROXIMITY_RADIUS, WATER_PROXIMITY_RADIUS + 1):
+                        if abs(dx) + abs(dy) <= WATER_PROXIMITY_RADIUS:
+                            self._water_positions_cache.add(
+                                (node.position[0] + dx, node.position[1] + dy)
+                            )
 
+        water_positions = self._water_positions_cache
         for v in alive:
             if v.current_position in water_positions:
                 v.needs.satisfy("thirst", WATER_AUTO_SATISFY_AMOUNT)
@@ -753,6 +933,23 @@ class SimulationEngine:
                 if v.needs.needs["hunger"].satisfaction <= 0:
                     self.logger.log("LIFECYCLE", f"{v.name} starved to death", day=day)
 
+                # Death episodes for kin and friends
+                for other in alive:
+                    if other.id == v.id:
+                        continue
+                    if other.family_id == v.family_id:
+                        other.memory.add_episode(
+                            day, "death_of_kin", f"{v.name} died",
+                            -0.8, other_villager_id=v.id,
+                        )
+                    else:
+                        rel = self.relationship_manager.get_or_create(other.id, v.id)
+                        if rel.affinity > 0.3:
+                            other.memory.add_episode(
+                                day, "death_of_friend", f"{v.name} died",
+                                -0.5, other_villager_id=v.id,
+                            )
+
         # Births
         for v in alive:
             if v.is_pregnant and v.pregnancy_days >= PREGNANCY_DURATION_DAYS:
@@ -774,6 +971,18 @@ class SimulationEngine:
                     fam.add_member(child.id)
 
                 self.metrics.record_birth()
+                # Birth episodes for both parents
+                v.memory.add_episode(
+                    day, "birth_of_child", f"gave birth to {child.name}",
+                    0.8, other_villager_id=child.id,
+                )
+                if v.spouse_id is not None:
+                    spouse = self._villager_map.get(v.spouse_id)
+                    if spouse and spouse.is_alive:
+                        spouse.memory.add_episode(
+                            day, "birth_of_child", f"{child.name} was born",
+                            0.8, other_villager_id=child.id,
+                        )
                 self.logger.log(
                     "LIFECYCLE", f"{child.name} was born to {v.name}",
                     villager_ids=[v.id, child.id], day=day,
@@ -803,6 +1012,14 @@ class SimulationEngine:
                         partner.spouse_id = v.id
                         self.family_manager.form_marriage(v, partner)
                         self.metrics.record_marriage()
+                        v.memory.add_episode(
+                            day, "marriage", f"married {partner.name}",
+                            0.9, other_villager_id=partner.id,
+                        )
+                        partner.memory.add_episode(
+                            day, "marriage", f"married {v.name}",
+                            0.9, other_villager_id=v.id,
+                        )
                         self.logger.log(
                             "MARRIAGE",
                             f"{v.name} and {partner.name} married",
@@ -853,6 +1070,7 @@ class SimulationEngine:
             fam.inventory.add(create_item("wooden_spear", 1, quality=0.5))
             fam.inventory.add(create_item("fishing_rod", 1, quality=0.4))
             fam.inventory.add(create_item("hoe", 1, quality=0.4))
+            fam.inventory.add(create_item("hammer", 1, quality=0.4))
             fam.inventory.add(create_item("firewood", 5, quality=0.5))
 
     def _create_starting_shelters(self) -> None:

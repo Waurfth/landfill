@@ -94,19 +94,29 @@ class DecisionEngine:
         urgencies = villager.needs.get_urgency_vector()
 
         # Determine target needs
+        all_needs_by_urgency = sorted(urgencies.keys(), key=lambda n: urgencies[n], reverse=True)
+
         if villager.needs.survival_critical():
-            # Survival mode: only consider survival-satisfying activities
-            target_needs = _survival_needs(urgencies)
+            # Survival mode: prioritize survival needs, then fall back to all needs
+            # This prevents getting "stuck" when survival activities need tools that
+            # require non-survival activities (e.g., craft_tools for warmth chain)
+            survival = _survival_needs(urgencies)
+            non_survival = [n for n in all_needs_by_urgency if n not in set(survival)]
+            target_needs = survival + non_survival
         else:
             # Normal mode: consider all needs, weighted by urgency
-            target_needs = sorted(urgencies.keys(), key=lambda n: urgencies[n], reverse=True)
+            target_needs = all_needs_by_urgency
 
-        # Generate candidate activities
+        # Generate candidate activities (deduplicate to avoid evaluating same activity twice)
         candidates: list[tuple[float, ActivityPlan]] = []
+        evaluated: set[str] = set()
 
         for need_name in target_needs[:5]:  # top 5 needs
             activities_for_need = _activities_for_need(need_name)
             for act_name in activities_for_need:
+                if act_name in evaluated:
+                    continue
+                evaluated.add(act_name)
                 act = ACTIVITIES.get(act_name)
                 if act is None:
                     continue
@@ -117,6 +127,24 @@ class DecisionEngine:
                 if plan is not None:
                     score, activity_plan = plan
                     candidates.append((score, activity_plan))
+
+        # Fallback: if survival-critical and no candidates, try remaining needs
+        if not candidates and villager.needs.survival_critical():
+            for need_name in target_needs[5:]:
+                activities_for_need = _activities_for_need(need_name)
+                for act_name in activities_for_need:
+                    if act_name in evaluated:
+                        continue
+                    evaluated.add(act_name)
+                    act = ACTIVITIES.get(act_name)
+                    if act is None:
+                        continue
+                    plan = self._evaluate_activity(
+                        villager, act, world_state, remaining_hours, urgencies, current_schedule,
+                    )
+                    if plan is not None:
+                        score, activity_plan = plan
+                        candidates.append((score, activity_plan))
 
         if not candidates:
             return None
@@ -159,9 +187,15 @@ class DecisionEngine:
             if world_state.season not in activity.required_season:
                 return None
 
+        # Check material requirements (construction activities)
+        family_inv = world_state.get_family_inventory(villager.family_id)
+        if activity.required_materials and family_inv:
+            for mat_type, mat_qty in activity.required_materials.items():
+                if family_inv.total_of(mat_type) < mat_qty:
+                    return None  # not enough building materials
+
         # Check tools — search both personal and family inventory
         inv = villager.personal_inventory
-        family_inv = world_state.get_family_inventory(villager.family_id)
 
         tool_quality = 1.0
         if activity.required_tools:
@@ -233,6 +267,10 @@ class DecisionEngine:
         score = self._apply_personality_biases(
             villager, activity, score, current_schedule
         )
+
+        # Episodic memory bias (learned avoidance / attraction)
+        memory_bias = villager.memory.get_activity_bias(activity.name)
+        score += memory_bias
 
         # Habit inertia
         if villager.memory.last_activity == activity.name:
@@ -307,20 +345,32 @@ class DecisionEngine:
         if self._rng.random() > (villager.traits.sociability / 100.0) * 0.8 + 0.2:
             return None
 
+        # Filter out villagers with strongly negative memory
+        available = available_villagers
+        if villager.memory.episodes:
+            avoided_ids: set[int] = set()
+            for vid_key, eps in _group_episodes_by_villager(villager.memory.episodes).items():
+                if sum(ep.emotional_impact for ep in eps) < -1.0:
+                    avoided_ids.add(vid_key)
+            if avoided_ids:
+                filtered = [v for v in available if v.id not in avoided_ids]
+                if filtered:
+                    available = filtered
+
         # Pick target: prefer family, then friends, then random
         friends = relationships.get_friends(villager.id)
-        family_nearby = [v for v in available_villagers if v.family_id == villager.family_id]
+        family_nearby = [v for v in available if v.family_id == villager.family_id]
 
         if family_nearby and self._rng.random() < 0.4:
             target = self._rng.choice(family_nearby)
         elif friends:
-            friend_nearby = [v for v in available_villagers if v.id in friends]
+            friend_nearby = [v for v in available if v.id in friends]
             if friend_nearby:
                 target = self._rng.choice(friend_nearby)
             else:
-                target = self._rng.choice(available_villagers)
+                target = self._rng.choice(available)
         else:
-            target = self._rng.choice(available_villagers)
+            target = self._rng.choice(available)
 
         # Choose action type
         if villager.needs.needs["social"].satisfaction < 0.3:
@@ -421,3 +471,12 @@ def _activities_for_need(need_name: str) -> list[str]:
         for act_name, needs in ACTIVITY_NEED_MAPPING.items()
         if need_name in needs
     ]
+
+
+def _group_episodes_by_villager(episodes: list) -> dict[int, list]:
+    """Group episodes by other_villager_id (excluding -1)."""
+    groups: dict[int, list] = {}
+    for ep in episodes:
+        if ep.other_villager_id >= 0:
+            groups.setdefault(ep.other_villager_id, []).append(ep)
+    return groups

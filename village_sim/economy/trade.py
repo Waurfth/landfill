@@ -385,8 +385,12 @@ class TradeSystem:
         agreeableness = (villager.traits.empathy + villager.traits.sociability) / 200.0
         personality_bonus = agreeableness * TRADE_PERSONALITY_MARGIN
 
+        # Loss aversion: loss-averse villagers demand a better ratio
+        # (50 is neutral; above 50 raises the bar, below 50 lowers it)
+        loss_penalty = (villager.traits.loss_aversion - 50) / 100.0 * TRADE_PERSONALITY_MARGIN
+
         # Require at least this ratio of receive/give to accept
-        threshold = max(0.5, 1.0 - trust_bonus - personality_bonus)
+        threshold = max(0.5, 1.0 - trust_bonus - personality_bonus + loss_penalty)
 
         ratio = receive_value / max(0.01, give_value)
         return ratio >= threshold

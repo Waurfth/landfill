@@ -132,13 +132,15 @@ class Villager:
         return self.traits.dexterity * self._age_physical_modifier() * self._health_modifier() * self._fatigue_modifier()
 
     def get_effective_trait(self, trait_name: str) -> float:
-        """Get a trait value modified by age/health/fatigue for physical traits."""
+        """Get a trait value modified by age/health/fatigue and life experiences."""
         base = getattr(self.traits, trait_name, 50.0)
         if trait_name in ("strength", "endurance", "dexterity"):
-            return base * self._age_physical_modifier() * self._health_modifier() * self._fatigue_modifier()
-        if trait_name == "intelligence":
-            return base * self._age_mental_modifier()
-        return base
+            base = base * self._age_physical_modifier() * self._health_modifier() * self._fatigue_modifier()
+        elif trait_name == "intelligence":
+            base = base * self._age_mental_modifier()
+        # Experiential modifier from episodic memory impressions
+        base += self.memory.get_experiential_modifier(trait_name)
+        return max(1.0, min(99.0, base))
 
     # ------------------------------------------------------------------
     # Modifiers

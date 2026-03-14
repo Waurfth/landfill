@@ -74,14 +74,14 @@ TRAIT_CORRELATIONS: list[tuple[str, str, float]] = [
 # NEEDS - decay rates (per day, proportion of max)
 # =============================================================================
 HUNGER_DECAY_RATE: float = 0.35
-THIRST_DECAY_RATE: float = 0.50
+THIRST_DECAY_RATE: float = 0.30
 SHELTER_DECAY_RATE: float = 0.05
 WARMTH_DECAY_RATE: float = 0.10
 SAFETY_DECAY_RATE: float = 0.02
 SOCIAL_DECAY_RATE: float = 0.05
 REST_DECAY_RATE: float = 0.30
 PURPOSE_DECAY_RATE: float = 0.01
-COMFORT_DECAY_RATE: float = 0.03
+COMFORT_DECAY_RATE: float = 0.06
 
 # Need weights (importance in decision-making)
 NEED_WEIGHTS: dict[str, float] = {
@@ -90,11 +90,11 @@ NEED_WEIGHTS: dict[str, float] = {
     "rest": 8.0,
     "warmth": 7.0,
     "shelter": 5.0,
-    "safety": 6.0,
+    "safety": 4.0,
     "health": 9.0,
-    "social": 3.0,
-    "purpose": 2.0,
-    "comfort": 1.0,
+    "social": 4.0,
+    "purpose": 3.0,
+    "comfort": 3.5,
 }
 
 # Survival-critical threshold
@@ -183,6 +183,33 @@ SHELTER_CAPACITY_BASE: int = 6        # people per basic shelter
 SHELTER_DAILY_DEGRADATION: float = 0.001
 STORM_DEGRADATION_MULTIPLIER: float = 5.0
 
+# Building material costs
+SHELTER_TIMBER_COST: float = 3.0
+SHELTER_STONE_COST: float = 2.0
+WELL_STONE_COST: float = 5.0
+MEETING_HALL_TIMBER_COST: float = 8.0
+MEETING_HALL_STONE_COST: float = 4.0
+GRANARY_TIMBER_COST: float = 5.0
+GRANARY_STONE_COST: float = 3.0
+
+# Infrastructure bonuses (applied daily to villagers)
+WELL_THIRST_BONUS: float = 0.2
+MEETING_HALL_SOCIAL_BONUS: float = 0.1
+MEETING_HALL_COMFORT_BONUS: float = 0.05
+GRANARY_PEST_REDUCTION: float = 0.5   # reduces pest food loss by 50%
+GRANARY_SAFETY_BONUS: float = 0.03
+SHELTER_COMFORT_BONUS: float = 0.04
+SHELTER_WARMTH_BONUS: float = 0.20     # daily warmth from living in a shelter
+SHELTER_SAFETY_BONUS: float = 0.02     # daily safety from living in a shelter
+SHELTER_SHELTER_BONUS: float = 0.04    # daily shelter satisfaction from having one
+
+# =============================================================================
+# FIREWOOD
+# =============================================================================
+FIREWOOD_DAILY_CONSUMPTION: float = 0.5
+FIREWOOD_WARMTH_SATISFACTION: float = 0.15
+NO_FIREWOOD_WINTER_PENALTY: float = 1.5
+
 # =============================================================================
 # EVENTS
 # =============================================================================
@@ -195,8 +222,8 @@ DISCOVERY_PROBABILITY: float = 0.05
 # =============================================================================
 # THIRST AUTO-SATISFY
 # =============================================================================
-WATER_PROXIMITY_RADIUS: int = 2         # cells from fresh water
-WATER_AUTO_SATISFY_AMOUNT: float = 0.4  # thirst satisfaction when near water
+WATER_PROXIMITY_RADIUS: int = 8         # cells from fresh water
+WATER_AUTO_SATISFY_AMOUNT: float = 0.5  # thirst satisfaction when near water
 
 # =============================================================================
 # TRADE
@@ -211,6 +238,31 @@ TRADE_VALUE_FOOD_HUNGRY_MULTIPLIER: float = 3.0  # how much more food is worth w
 TRADE_DIMINISHING_SURPLUS_FACTOR: float = 0.5     # value drops for items already in surplus
 
 # =============================================================================
+# EPISODIC MEMORY
+# =============================================================================
+MEMORY_SALIENCE_DECAY: float = 0.97           # daily multiplier (~50 days to fade)
+MEMORY_CONSOLIDATION_THRESHOLD: float = 0.2   # consolidate below this salience
+MEMORY_TRAUMATIC_THRESHOLD: float = 0.7       # high-impact events resist consolidation
+MAX_EPISODES_PER_VILLAGER: int = 40           # hard cap, force-consolidate lowest
+MEMORY_BIAS_LEARNING_RATE: float = 0.1        # how fast biases form from episodes
+MEMORY_BIAS_DECAY_RATE: float = 0.001         # daily bias decay toward zero
+MEMORY_BIAS_MAX: float = 0.3                  # caps bias magnitude
+MEMORY_IMPRESSION_WEIGHT: float = 0.05        # impression influence on sentiment
+
+# Related activities share bias at reduced strength
+ACTIVITY_BIAS_SPREAD: dict[str, list[tuple[str, float]]] = {
+    "hunt_large_game": [("hunt_small_game", 0.5)],
+    "hunt_small_game": [("hunt_large_game", 0.3)],
+    "mine_ore": [("mine_stone", 0.4), ("gather_stone", 0.2)],
+    "mine_stone": [("mine_ore", 0.3)],
+    "farm_plant": [("farm_tend", 0.7), ("farm_harvest", 0.7)],
+    "farm_tend": [("farm_plant", 0.5), ("farm_harvest", 0.5)],
+    "chop_wood": [("gather_wood", 0.3)],
+    "gather_wood": [("chop_wood", 0.3)],
+}
+
+# =============================================================================
 # DASHBOARD
 # =============================================================================
 DASHBOARD_UPDATE_INTERVAL: int = 5  # update every N simulated days
+TRACKER_UPDATE_INTERVAL: int = 2    # redraw villager tracker graph every N days

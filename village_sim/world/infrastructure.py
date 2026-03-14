@@ -6,9 +6,13 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 from village_sim.core.config import (
+    GRANARY_SAFETY_BONUS,
+    MEETING_HALL_COMFORT_BONUS,
+    MEETING_HALL_SOCIAL_BONUS,
     SHELTER_CAPACITY_BASE,
     SHELTER_DAILY_DEGRADATION,
     STORM_DEGRADATION_MULTIPLIER,
+    WELL_THIRST_BONUS,
 )
 
 
@@ -90,3 +94,52 @@ class InfrastructureManager:
         if shelter is None:
             return 0.0
         return shelter.quality * shelter.durability
+
+    def get_structure_of_type(self, structure_type: str) -> Optional[Structure]:
+        """Get the first structure of a given type (for communal buildings)."""
+        for s in self._structures.values():
+            if s.structure_type == structure_type:
+                return s
+        return None
+
+    def has_communal(self, structure_type: str) -> bool:
+        """Check if a communal building of this type exists."""
+        for s in self._structures.values():
+            if s.structure_type == structure_type and s.owner_family_id is None:
+                return True
+        return False
+
+    def get_village_bonuses(self) -> dict[str, float]:
+        """Calculate aggregate need bonuses from all communal structures.
+
+        Returns a dict of bonus_name -> bonus_value. Only includes bonuses
+        for structures that actually exist and have durability > 0.
+        """
+        bonuses: dict[str, float] = {}
+
+        for s in self._structures.values():
+            if s.durability <= 0:
+                continue
+            effectiveness = s.quality * s.durability
+
+            if s.structure_type == "well" and s.owner_family_id is None:
+                bonuses["well"] = bonuses.get("well", 0) + WELL_THIRST_BONUS * effectiveness
+
+            elif s.structure_type == "meeting_hall" and s.owner_family_id is None:
+                bonuses["meeting_hall_social"] = (
+                    bonuses.get("meeting_hall_social", 0) + MEETING_HALL_SOCIAL_BONUS * effectiveness
+                )
+                bonuses["meeting_hall_comfort"] = (
+                    bonuses.get("meeting_hall_comfort", 0) + MEETING_HALL_COMFORT_BONUS * effectiveness
+                )
+
+            elif s.structure_type == "granary" and s.owner_family_id is None:
+                bonuses["granary_safety"] = (
+                    bonuses.get("granary_safety", 0) + GRANARY_SAFETY_BONUS * effectiveness
+                )
+                bonuses["granary_pest_reduction"] = max(
+                    bonuses.get("granary_pest_reduction", 0),
+                    effectiveness,  # best granary determines pest reduction
+                )
+
+        return bonuses

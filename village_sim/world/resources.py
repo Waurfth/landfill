@@ -117,9 +117,12 @@ class ResourceManager:
                     cell.resource_node_id = node.node_id
 
     def daily_regeneration(self, season: str) -> None:
-        """Regenerate all resource nodes."""
+        """Regenerate all resource nodes and decay predator danger."""
         for node in self._nodes.values():
             node.regenerate(season)
+            # Predator danger decays daily so it doesn't accumulate forever
+            if node.danger_level > 0:
+                node.danger_level = max(0.0, node.danger_level - 0.015)
 
     def get_nearest_of_type(
         self, position: tuple[int, int], resource_type: ResourceType,
